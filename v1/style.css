@@ -1,0 +1,798 @@
+/* ==================================================
+   GLOBAL VARIABLES
+================================================== */
+
+:root {
+
+    --orange: #E55D3B;
+    --light-blue: #B3CBD9;
+
+    --dark: #384478;
+    --light: #fffff;
+    --grey: #fffff;
+
+    --heading-font: "Bebas Neue", sans-serif;
+    --body-font: "Quicksand", sans-serif;
+
+    --transition: 0.3s ease;
+
+}
+
+
+/* ==================================================
+   RESET
+================================================== */
+
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+
+body {
+
+    font-family: var(--body-font);
+    color: var(--dark);
+    background: var(--light);
+
+    overflow-x: hidden;
+
+}
+
+
+img {
+
+    max-width: 100%;
+    display: block;
+
+}
+
+
+a {
+
+    text-decoration: none;
+    color: inherit;
+
+}
+
+
+ul {
+
+    list-style: none;
+
+}
+
+
+
+/* ==================================================
+   TYPOGRAPHY
+================================================== */
+
+h1,
+h2,
+h3 {
+
+    font-family: var(--heading-font);
+    letter-spacing: 1px;
+    font-weight: 400;
+
+}
+
+
+h1 {
+
+    font-size: clamp(3rem, 8vw, 6rem);
+
+}
+
+
+h2 {
+
+    font-size: clamp(2rem, 5vw, 3.5rem);
+
+    text-align: center;
+
+    margin-bottom: 3rem;
+
+}
+
+
+p {
+
+    line-height: 1.8;
+    font-size: 1.05rem;
+
+}
+
+
+
+/* ==================================================
+   BUTTONS
+================================================== */
+
+.btn {
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px 35px;
+
+    border-radius: 50px;
+
+    font-weight: 700;
+
+    transition: var(--transition);
+
+}
+
+
+.primary {
+
+    background: var(--orange);
+    color: white;
+
+}
+
+
+.secondary {
+
+    border: 2px solid white;
+    color: white;
+
+}
+
+
+.btn:hover {
+
+    transform: translateY(-4px);
+
+}
+
+
+
+/* ==================================================
+   NAVBAR
+================================================== */
+
+header {
+
+    position: fixed;
+
+    top: 0;
+    width: 100%;
+
+    z-index: 1000;
+
+}
+
+
+.navbar {
+
+    height:90px;
+
+    padding:0 5%;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:30px;
+
+    transition:var(--transition);
+
+}
+
+
+.nav-links {
+
+    display:flex;
+
+    gap:35px;
+
+    margin-left:auto;
+
+}
+
+
+.language-switch {
+
+    display:flex;
+
+    position:absolute;
+
+    right:80px;
+
+}
+
+
+.language-switch button {
+
+    background:none;
+
+    border:none;
+
+    cursor:pointer;
+
+    font-weight:700;
+
+    font-family:var(--body-font);
+
+    padding:5px;
+
+}
+
+
+.language-switch button:hover {
+
+    color:var(--orange);
+
+}
+
+.language-switch button.active {
+
+    color:var(--orange);
+
+    border-bottom:2px solid var(--orange);
+
+}
+
+.navbar.scrolled {
+
+    background: rgba(255,255,255,0.95);
+
+    backdrop-filter: blur(10px);
+
+}
+
+
+
+.logo img {
+
+    width: 55px;
+
+}
+
+
+
+.nav-links {
+
+    display: flex;
+
+    gap: 35px;
+
+}
+
+
+.nav-links a {
+
+    font-weight: 700;
+
+    position: relative;
+
+}
+
+
+
+.nav-links a::after {
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    bottom:-8px;
+
+    width:0;
+
+    height:2px;
+
+    background:var(--orange);
+
+    transition:var(--transition);
+
+}
+
+
+.nav-links a:hover::after {
+
+    width:100%;
+
+}
+
+
+
+.language-switch button {
+
+    background:none;
+
+    border:none;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+
+
+
+.hamburger {
+
+    display:none;
+
+    cursor:pointer;
+
+}
+
+
+.hamburger span {
+
+    width:28px;
+
+    height:3px;
+
+    background:var(--dark);
+
+    display:block;
+
+    margin:6px;
+
+}
+
+
+
+/* ==================================================
+   HERO
+================================================== */
+
+#hero {
+
+    height:100vh;
+
+    background:
+
+    linear-gradient(
+        rgba(0,0,0,.35),
+        rgba(0,0,0,.35)
+    ),
+
+    url("assets/hero/hero.jpg");
+
+    background-size:cover;
+
+    background-position:center;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:white;
+
+    text-align:center;
+
+}
+
+
+.hero-overlay {
+
+    animation:fadeUp 1s ease forwards;
+
+}
+
+
+.hero-logo {
+
+    width:min(350px,70vw);
+
+    margin:auto;
+
+    margin-bottom:30px;
+
+}
+
+
+.hero-buttons {
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    margin-top:35px;
+
+}
+
+
+
+/* ==================================================
+   GALLERY
+================================================== */
+
+#gallery {
+
+    padding:100px 0;
+
+}
+
+
+.gallery-container {
+
+    display:flex;
+
+    gap:25px;
+
+    overflow-x:auto;
+
+    padding:0 5%;
+
+    scroll-snap-type:x mandatory;
+
+}
+
+
+.gallery-container::-webkit-scrollbar {
+
+    display:none;
+
+}
+
+
+.gallery-container img {
+
+    height:450px;
+
+    width:350px;
+
+    object-fit:cover;
+
+    border-radius:20px;
+
+    scroll-snap-align:center;
+
+    transition:var(--transition);
+
+}
+
+
+.gallery-container img:hover {
+
+    transform:scale(1.03);
+
+}
+
+
+
+/* ==================================================
+   STORY
+================================================== */
+
+#story {
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    min-height:600px;
+
+}
+
+
+.story-image img {
+
+    height:100%;
+
+    width:100%;
+
+    object-fit:cover;
+
+}
+
+
+.story-text {
+
+    padding:10%;
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-direction:column;
+
+}
+
+
+
+.story-text h2 {
+
+    text-align:left;
+
+}
+
+
+
+/* ==================================================
+   MENU
+================================================== */
+
+#menu {
+
+    background:var(--grey);
+
+    padding:100px 10%;
+
+    text-align:center;
+
+}
+
+
+
+/* ==================================================
+   ORDER
+================================================== */
+
+#order {
+
+    padding:100px 5%;
+
+    text-align:center;
+
+}
+
+
+
+.delivery-links {
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:60px;
+
+}
+
+
+.delivery-links img {
+
+    width:180px;
+
+    transition:var(--transition);
+
+}
+
+
+.delivery-links img:hover {
+
+    transform:scale(1.08);
+
+}
+
+
+
+/* ==================================================
+   CONTACT
+================================================== */
+
+#contact {
+
+    padding:100px 10%;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:50px;
+
+}
+
+
+.contact-form form {
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+
+input,
+textarea {
+
+    padding:15px;
+
+    border-radius:10px;
+
+    border:1px solid #ddd;
+
+    font-family:inherit;
+
+}
+
+
+textarea {
+
+    height:150px;
+
+}
+
+
+
+/* ==================================================
+   FOOTER
+================================================== */
+
+footer {
+
+    background:var(--dark);
+
+    color:white;
+
+    padding:40px;
+
+    text-align:center;
+
+}
+
+
+footer img {
+
+    width:60px;
+
+    margin:auto;
+
+}
+
+
+
+/* ==================================================
+   ANIMATIONS
+================================================== */
+
+@keyframes fadeUp {
+
+
+    from {
+
+        opacity:0;
+
+        transform:translateY(30px);
+
+    }
+
+
+    to {
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+
+}
+
+
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+@media(max-width:768px){
+
+
+.nav-links {
+
+
+    position:fixed;
+
+    top:0;
+
+    right:-100%;
+
+    height:100vh;
+
+    width:75%;
+
+    background:white;
+
+    flex-direction:column;
+
+    padding:120px 40px;
+
+    transition:var(--transition);
+
+}
+}
+
+
+.nav-links.active {
+
+    right:0;
+
+}
+
+
+
+.language-switch {
+
+    display:none;
+
+}
+
+
+
+.hamburger {
+
+    display:block;
+
+}
+
+
+
+.hero-buttons {
+
+    flex-direction:column;
+
+}
+
+
+
+#story {
+
+    grid-template-columns:1fr;
+
+}
+
+
+
+.story-text {
+
+    padding:50px 25px;
+
+}
+
+
+
+#contact {
+
+    grid-template-columns:1fr;
+
+    padding:70px 25px;
+
+}
+
+
+
+.delivery-links {
+
+    flex-direction:column;
+
+    align-items:center;
+
+}
+
+
+.gallery-container img {
+
+    height:350px;
+
+    width:280px;
+
+}
+
+

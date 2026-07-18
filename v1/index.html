@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Restaurant Name | Authentic Vietnamese Street Food</title>
+
+    <meta name="description" content="Fresh Vietnamese Bánh Mì in Paris">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google Fonts (replace with local files later if preferred) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;700&family=Bebas+Neue&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- ===================== -->
+    <!-- NAVIGATION -->
+    <!-- ===================== -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <a href="#hero" class="logo">
+                <img src="assets/logo/logo-small.svg" alt="Restaurant Logo">
+            </a>
+
+            <ul class="nav-links">
+
+                <li><a href="#gallery" data-lang="gallery"></a></li>
+                <li><a href="#story" data-lang="story"></a></li>
+                <li><a href="#menu" data-lang="menu"></a></li>
+                <li><a href="#order" data-lang="order"></a></li>
+                <li><a href="#contact" data-lang="contact"></a></li>
+
+            </ul>
+
+            <div class="language-switch">
+
+                <button id="frBtn">FR</button>
+                <button id="enBtn">EN</button>
+
+            </div>
+
+            <div class="hamburger">
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+    <!-- ===================== -->
+    <!-- HERO -->
+    <!-- ===================== -->
+
+    <section id="hero">
+
+        <div class="hero-overlay">
+
+            <img class="hero-logo"
+                src="assets/logo/logo.svg"
+                alt="Restaurant Logo">
+
+            <h1 data-lang="heroTitle"></h1>
+
+            <p data-lang="heroSubtitle"></p>
+
+            <div class="hero-buttons">
+
+                <a href="#menu" class="btn primary" data-lang="viewMenu"></a>
+
+                <a href="#order" class="btn secondary" data-lang="orderNow"></a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ===================== -->
+    <!-- GALLERY -->
+    <!-- ===================== -->
+
+    <section id="gallery">
+
+        <h2 data-lang="galleryTitle"></h2>
+
+        <div class="gallery-container">
+
+            <img src="assets/gallery/gallery1.jpg">
+            <img src="assets/gallery/gallery2.jpg">
+            <img src="assets/gallery/gallery3.jpg">
+            <img src="assets/gallery/gallery4.jpg">
+            <img src="assets/gallery/gallery5.jpg">
+            <img src="assets/gallery/gallery6.jpg">
+            <img src="assets/gallery/gallery7.jpg">
+            <img src="assets/gallery/gallery8.jpg">
+            <img src="assets/gallery/gallery9.jpg">
+            <img src="assets/gallery/gallery10.jpg">
+
+        </div>
+
+    </section>
+
+    <!-- ===================== -->
+    <!-- STORY -->
+    <!-- ===================== -->
+
+    <section id="story">
+
+        <div class="story-image">
+
+            <img src="assets/story/founders.jpg">
+
+        </div>
+
+        <div class="story-text">
+
+            <h2 data-lang="storyTitle"></h2>
+
+            <p data-lang="storyText"></p>
+
+        </div>
+
+    </section>
+
+    <!-- ===================== -->
+    <!-- MENU -->
+    <!-- ===================== -->
+
+    <section id="menu">
+
+        <h2 data-lang="menuTitle"></h2>
+
+        <p data-lang="menuDescription"></p>
+
+        <a href="assets/menu/menu.pdf"
+            target="_blank"
+            class="btn primary"
+            data-lang="downloadMenu">
+        </a>
+
+    </section>
+
+    <!-- ===================== -->
+    <!-- ORDER -->
+    <!-- ===================== -->
+
+    <section id="order">
+
+        <h2 data-lang="orderTitle"></h2>
+
+        <div class="delivery-links">
+
+            <a href="https://www.ubereats.com/fr-en/store/banh-mi-oi-!/FKNrXgOGSUawAmfw8WORTA?diningMode=DELIVERY&pl=JTdCJTIyYWRkcmVzcyUyMiUzQSUyMk1vbnRlbGJhYW5zdHJhYXQlMjAyNCUyMiUyQyUyMnJlZmVyZW5jZSUyMiUzQSUyMkNoSUpTWGtfN0xzSnhrY1JTdE0zbWhwYzVOcyUyMiUyQyUyMnJlZmVyZW5jZVR5cGUlMjIlM0ElMjJnb29nbGVfcGxhY2VzJTIyJTJDJTIybGF0aXR1ZGUlMjIlM0E1Mi4zNzI1NzEwOTk5OTk5OTUlMkMlMjJsb25naXR1ZGUlMjIlM0E0LjkwMzU2NzklN0Q%3D">
+
+                <img src="assets/icons/uber.svg">
+
+            </a>
+
+            <a href="https://deliveroo.fr/en/menu/paris/9eme-opera/banh-mi-oi-5-rue-guy-patin">
+
+                <img src="assets/icons/deliveroo.svg">
+
+            </a>
+
+        </div>
+
+    </section>
+
+    <!-- ===================== -->
+    <!-- CONTACT -->
+    <!-- ===================== -->
+
+    <section id="contact">
+
+        <div class="contact-info">
+
+            <h2 data-lang="contactTitle"></h2>
+
+            <p>
+                21 Rue Henry Monnier<br>
+                Paris
+            </p>
+
+            <p data-lang="openingHours"></p>
+
+            <a href="https://www.instagram.com/banhmioiparis/">
+                Instagram
+            </a>
+
+        </div>
+
+        <div class="contact-form">
+
+            <form>
+
+                <input
+                    type="text"
+                    placeholder="Name"
+                    required>
+
+                <input
+                    type="email"
+                    placeholder="Email"
+                    required>
+
+                <textarea
+                    placeholder="Message"></textarea>
+
+                <button
+                    class="btn primary"
+                    type="submit"
+                    data-lang="send">
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+    <!-- ===================== -->
+    <!-- FOOTER -->
+    <!-- ===================== -->
+
+    <footer>
+
+        <img src="assets/logo/logo-small.svg">
+
+        <p>
+
+            © 2026 Bánh Mì Oi! Paris
+
+        </p>
+
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

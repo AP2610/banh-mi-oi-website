@@ -1,0 +1,42 @@
+{
+    "gallery": "Gallery",
+    "story": "Our Story",
+    "menu": "Menu",
+    "order": "Order",
+    "contact": "Contact Us",
+
+    "heroTitle": "Authentic Vietnamese Street Food",
+
+    "heroSubtitle": "Fresh Bánh Mì made with love in Paris",
+
+    "viewMenu": "View Menu",
+
+    "orderNow": "Order Now",
+
+    "galleryTitle": "Inside The Store",
+
+    "storyTitle": "Our Story",
+
+    "storyText":
+    "Val grew up surrounded by the vibrant street food culture of Saigon. After moving to France, he wanted to recreate the flavours of his childhood using fresh French ingredients. Together with Mathias, whom he met at hospitality school, they created a place where Vietnamese tradition meets French craftsmanship. Every Bánh Mì is prepared fresh with homemade recipes and carefully selected ingredients.",
+
+    "menuTitle": "Our Menu",
+
+    "menuDescription":
+    "Discover our selection of authentic Bánh Mì, sides and homemade drinks.",
+
+    "downloadMenu":
+    "Download Menu",
+
+    "orderTitle":
+    "Order Online",
+
+    "contactTitle":
+    "Come Visit Us",
+
+    "openingHours":
+    "Opening Hours: Monday - Friday, 12:00 - 15:00",
+
+    "send":
+    "Send Message"
+}
