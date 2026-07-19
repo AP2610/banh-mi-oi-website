@@ -5,7 +5,7 @@ import prettierRecommended from 'eslint-plugin-prettier/recommended';
 
 const eslintConfig = defineConfig([
     {
-        ignores: ['v1/**'],
+        ignores: ['v1/**', 'coverage/**', 'out/**'],
     },
     ...nextVitals,
     ...nextTypeScript,
