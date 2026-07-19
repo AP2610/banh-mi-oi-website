@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { AppShell } from '@/components/layout/app-shell';
+import { SiteHeader } from '@/components/layout/site-header';
 
 // TODO: Localise metadata from Sanity when the SEO slice is implemented.
 export const metadata: Metadata = {
@@ -13,8 +13,10 @@ type WebsiteLayoutProps = {
 };
 
 const WebsiteLayout = ({ children }: WebsiteLayoutProps) => (
-    <div className="website-root bg-background font-body text-foreground antialiased">
-        <AppShell>{children}</AppShell>
+    <div className="website-root flex min-h-svh flex-col bg-background font-body text-foreground antialiased">
+        <SiteHeader />
+
+        <main className="flex-1">{children}</main>
     </div>
 );
 
