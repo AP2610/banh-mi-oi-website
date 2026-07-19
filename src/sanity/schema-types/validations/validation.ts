@@ -21,8 +21,8 @@ export const requiredEnglishTranslation = (rule: Rule) =>
 
 export const requiredFrenchAndEnglishTranslations = (rule: Rule) =>
     rule.required().custom((value) => {
-        if (!hasLocalizedValue(value, 'fr')) return 'French alternative text is required.';
-        if (!hasLocalizedValue(value, 'en')) return 'English alternative text is required.';
+        if (!hasLocalizedValue(value, 'fr')) return 'French text is required.';
+        if (!hasLocalizedValue(value, 'en')) return 'An English translation is required.';
 
         return true;
     });
