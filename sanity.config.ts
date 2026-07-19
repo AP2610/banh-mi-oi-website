@@ -10,7 +10,7 @@ import { structureTool } from 'sanity/structure';
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import { apiVersion, dataset, projectId } from './src/sanity/env';
-import { schema } from './src/sanity/schemaTypes';
+import { schema } from './src/sanity/schema-types';
 import { structure } from './src/sanity/structure';
 import { internationalizedArray } from 'sanity-plugin-internationalized-array';
 
@@ -18,7 +18,12 @@ export default defineConfig({
     basePath: '/studio',
     projectId,
     dataset,
-    // Add and edit the content schema in the './sanity/schemaTypes' folder
+    document: {
+        actions: (previousActions, { schemaType }) =>
+            schemaType === 'homePage' ? previousActions.filter(({ action }) => action !== 'duplicate') : previousActions,
+        newDocumentOptions: (previousOptions) => previousOptions.filter(({ templateId }) => templateId !== 'homePage'),
+    },
+    // Add and edit the content schema in the './sanity/schema-types' folder
     schema,
     plugins: [
         structureTool({ structure }),
@@ -27,10 +32,10 @@ export default defineConfig({
         visionTool({ defaultApiVersion: apiVersion }),
         internationalizedArray({
             languages: [
-                { id: 'en', title: 'English' },
                 { id: 'fr', title: 'French' },
+                { id: 'en', title: 'English' },
             ],
-            defaultLanguages: ['fr'],
+            defaultLanguages: ['fr', 'en'],
             fieldTypes: ['string', 'text'],
         }),
     ],
