@@ -1,7 +1,7 @@
 import { HiOutlineHome } from 'react-icons/hi2';
 import { defineField, defineType } from 'sanity';
 
-import { requiredEnglishTranslation } from '../validations/validation';
+import { requiredFrenchAndEnglishTranslations } from '../validations/validation';
 
 export const homePage = defineType({
     name: 'homePage',
@@ -21,14 +21,14 @@ export const homePage = defineType({
                     title: 'Hero Title',
                     type: 'internationalizedArrayString',
                     description: 'The primary homepage title.',
-                    validation: requiredEnglishTranslation,
+                    validation: requiredFrenchAndEnglishTranslations,
                 }),
                 defineField({
                     name: 'heroSubtitle',
                     title: 'Hero Subtitle',
                     type: 'internationalizedArrayText',
                     description: 'A short introduction displayed below the heading.',
-                    validation: requiredEnglishTranslation,
+                    validation: requiredFrenchAndEnglishTranslations,
                 }),
                 defineField({
                     name: 'image',
