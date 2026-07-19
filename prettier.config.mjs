@@ -1,6 +1,6 @@
 const prettierConfig = {
-  printWidth: 130,
-  tabWidth: 2,
+  printWidth: 150,
+  tabWidth: 4,
   singleQuote: true,
   semi: true,
   trailingComma: 'all',
