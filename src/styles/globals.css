@@ -1,28 +1,61 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-*: initial;
+    --color-*: initial;
 
-  /* Colors */
-  --color-orangeade: #e55d3b;
-  --color-sodalite-blue: #384478;
-  --color-antique-white: #eee7d3;
-  --color-omphalodes: #b3cbd9;
-  --color-black: rgba(20, 20, 20, 1);
-  --color-white: rgba(250, 250, 250, 1);
-  --color-light-gray: rgba(201, 206, 214, 1);
-
-  /* Fonts */
-  --font-body: var(--font-bebas);
-  --font-heading: var(--font-quicksand);
+    /* Colors */
+    --color-orangeade: #e55d3b;
+    --color-sodalite-blue: #384478;
+    --color-antique-white: #eee7d3;
+    --color-omphalodes: #b3cbd9;
+    --color-black: rgba(20, 20, 20, 1);
+    --color-white: rgba(250, 250, 250, 1);
+    --color-light-gray: rgba(201, 206, 214, 1);
 }
 
 @theme inline {
-  /* Colors */
-  --color-primary: var(--color-orangeade);
-  --color-secondary: var(--color-sodalite-blue);
-  --color-tertiary: var(--color-omphalodes);
+    /* Colors */
+    --color-primary: var(--color-orangeade);
+    --color-secondary: var(--color-sodalite-blue);
+    --color-tertiary: var(--color-omphalodes);
 
-  --color-background: var(--color-antique-white);
-  --color-foreground: var(--color-sodalite-blue);
+    --color-background: var(--color-antique-white);
+    --color-foreground: var(--color-sodalite-blue);
+
+    /* next/font variables are applied to <body>, so these aliases must resolve inline. */
+    --font-body: var(--font-quicksand);
+    --font-heading: var(--font-bebas);
+}
+
+@layer base {
+    html:has(.website-root) {
+        scroll-behavior: smooth;
+    }
+
+    .website-root {
+        min-width: 320px;
+        overflow-x: hidden;
+        font-family: var(--font-quicksand), system-ui, sans-serif;
+    }
+
+    .website-root :focus-visible {
+        outline: 3px solid var(--color-white);
+        outline-offset: 3px;
+        box-shadow: 0 0 0 6px var(--color-sodalite-blue);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html:has(.website-root) {
+            scroll-behavior: auto;
+        }
+
+        .website-root,
+        .website-root *,
+        .website-root *::before,
+        .website-root *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
 }
