@@ -13,6 +13,7 @@ import { apiVersion, dataset, projectId } from './src/sanity/env';
 import { schema } from './src/sanity/schema-types';
 import { structure } from './src/sanity/structure';
 import { internationalizedArray } from 'sanity-plugin-internationalized-array';
+import { media } from 'sanity-plugin-media';
 
 export default defineConfig({
     basePath: '/studio',
@@ -38,5 +39,6 @@ export default defineConfig({
             defaultLanguages: ['fr', 'en'],
             fieldTypes: ['string', 'text'],
         }),
+        media(),
     ],
 });
