@@ -27,6 +27,12 @@
     --font-heading: var(--font-bebas);
 }
 
+@utility text-shadow-layered {
+    text-shadow:
+        2px 2px 6px var(--color-orangeade),
+        4px 4px 8px var(--color-black);
+}
+
 @layer base {
     html:has(.website-root) {
         scroll-behavior: smooth;
