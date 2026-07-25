@@ -55,6 +55,22 @@
               },
               "optional": false
             },
+            "primaryCta": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "callToAction"
+              },
+              "optional": false
+            },
+            "secondaryCta": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "callToAction"
+              },
+              "optional": false
+            },
             "image": {
               "type": "objectAttribute",
               "value": {
@@ -148,6 +164,84 @@
           "value": {
             "type": "inline",
             "name": "internationalizedArrayString"
+          },
+          "optional": false
+        }
+      }
+    }
+  },
+  {
+    "name": "callToAction",
+    "type": "type",
+    "value": {
+      "type": "object",
+      "attributes": {
+        "_type": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string",
+            "value": "callToAction"
+          }
+        },
+        "label": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "inline",
+            "name": "internationalizedArrayString"
+          },
+          "optional": false
+        },
+        "url": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "union",
+            "of": [
+              {
+                "type": "string",
+                "value": "/menu"
+              },
+              {
+                "type": "string",
+                "value": "/#hero"
+              },
+              {
+                "type": "string",
+                "value": "/#story"
+              },
+              {
+                "type": "string",
+                "value": "/#menu"
+              },
+              {
+                "type": "string",
+                "value": "/#order"
+              },
+              {
+                "type": "string",
+                "value": "/#gallery"
+              },
+              {
+                "type": "string",
+                "value": "/#contact"
+              }
+            ]
+          },
+          "optional": false
+        },
+        "variant": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "union",
+            "of": [
+              {
+                "type": "string",
+                "value": "primary"
+              },
+              {
+                "type": "string",
+                "value": "secondary"
+              }
+            ]
           },
           "optional": false
         }

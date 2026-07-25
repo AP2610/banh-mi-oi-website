@@ -24,6 +24,8 @@ export type HomePage = {
     hero: {
         heroTitle: InternationalizedArrayString;
         heroSubtitle: InternationalizedArrayText;
+        primaryCta: CallToAction;
+        secondaryCta: CallToAction;
         image: AccessibleImage;
     };
 };
@@ -42,6 +44,13 @@ export type AccessibleImage = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt: InternationalizedArrayString;
+};
+
+export type CallToAction = {
+    _type: 'callToAction';
+    label: InternationalizedArrayString;
+    url: '/menu' | '/#hero' | '/#story' | '/#menu' | '/#order' | '/#gallery' | '/#contact';
+    variant: 'primary' | 'secondary';
 };
 
 export type InternationalizedArrayText = Array<
@@ -191,6 +200,7 @@ export type AllSanitySchemaTypes =
     | HomePage
     | SanityImageAssetReference
     | AccessibleImage
+    | CallToAction
     | InternationalizedArrayText
     | InternationalizedArrayString
     | SanityImageCrop
@@ -209,18 +219,30 @@ export type AllSanitySchemaTypes =
 
 // Source: src/sanity/queries/home-page.ts
 // Variable: HOME_PAGE_QUERY
-// Query: *[_id == "homePage"][0] {        _id,        "title": hero.heroTitle[language == $locale][0].value,        "subtitle": hero.heroSubtitle[language == $locale][0].value,        "image": hero.image {            "assetId": asset->_id,            "lqip": asset->metadata.lqip,            "width": asset->metadata.dimensions.width,            "height": asset->metadata.dimensions.height,            crop {                top,                right,                bottom,                left            },            hotspot {                x,                y,                width,                height            },            "alt": alt[language == $locale][0].value        }    }
+// Query: *[_id == "homePage"][0] {        _id,        "title": hero.heroTitle[language == $locale][0].value,        "subtitle": hero.heroSubtitle[language == $locale][0].value,        "primaryCta": hero.primaryCta {            "label": label[language == $locale][0].value,            url,            variant        },        "secondaryCta": hero.secondaryCta {            "label": label[language == $locale][0].value,            url,            variant        },        "image": hero.image {            "assetId": asset->_id,            "lqip": asset->metadata.lqip,            "width": asset->metadata.dimensions.width,            "height": asset->metadata.dimensions.height,            crop {                top,                right,                bottom,                left            },            hotspot {                x,                y,                width,                height            },            "alt": alt[language == $locale][0].value        }    }
 export type HOME_PAGE_QUERY_RESULT =
     | {
           _id: 'homePage';
           title: null;
           subtitle: null;
+          primaryCta: null;
+          secondaryCta: null;
           image: null;
       }
     | {
           _id: 'homePage';
           title: string | null;
           subtitle: string | null;
+          primaryCta: {
+              label: string | null;
+              url: '/#contact' | '/#gallery' | '/#hero' | '/#menu' | '/#order' | '/#story' | '/menu';
+              variant: 'primary' | 'secondary';
+          };
+          secondaryCta: {
+              label: string | null;
+              url: '/#contact' | '/#gallery' | '/#hero' | '/#menu' | '/#order' | '/#story' | '/menu';
+              variant: 'primary' | 'secondary';
+          };
           image: {
               assetId: string | null;
               lqip: string | null;

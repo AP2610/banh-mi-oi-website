@@ -5,6 +5,16 @@ export const HOME_PAGE_QUERY = defineQuery(/* groq */ `
         _id,
         "title": hero.heroTitle[language == $locale][0].value,
         "subtitle": hero.heroSubtitle[language == $locale][0].value,
+        "primaryCta": hero.primaryCta {
+            "label": label[language == $locale][0].value,
+            url,
+            variant
+        },
+        "secondaryCta": hero.secondaryCta {
+            "label": label[language == $locale][0].value,
+            url,
+            variant
+        },
         "image": hero.image {
             "assetId": asset->_id,
             "lqip": asset->metadata.lqip,

@@ -31,6 +31,20 @@ export const homePage = defineType({
                     validation: requiredFrenchAndEnglishTranslations,
                 }),
                 defineField({
+                    name: 'primaryCta',
+                    title: 'Primary call to action',
+                    type: 'callToAction',
+                    description: 'The first button displayed in the hero.',
+                    validation: (rule) => rule.required(),
+                }),
+                defineField({
+                    name: 'secondaryCta',
+                    title: 'Secondary call to action',
+                    type: 'callToAction',
+                    description: 'The second button displayed in the hero.',
+                    validation: (rule) => rule.required(),
+                }),
+                defineField({
                     name: 'image',
                     title: 'Hero image',
                     type: 'accessibleImage',
