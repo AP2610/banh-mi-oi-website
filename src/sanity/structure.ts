@@ -1,6 +1,6 @@
 import type { StructureResolver } from 'sanity/structure';
 
-const singletonTypes = new Set(['homePage']);
+const excludedPageTypes = new Set(['homePage', 'media.tag']);
 
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
 export const structure: StructureResolver = (S) =>
@@ -19,7 +19,7 @@ export const structure: StructureResolver = (S) =>
                                 .title('Homepage')
                                 .schemaType('homePage')
                                 .child(S.document().schemaType('homePage').documentId('homePage').title('Homepage')),
-                            ...S.documentTypeListItems().filter((listItem) => !singletonTypes.has(listItem.getId() ?? '')),
+                            ...S.documentTypeListItems().filter((listItem) => !excludedPageTypes.has(listItem.getId() ?? '')),
                         ]),
                 ),
         ]);
