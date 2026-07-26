@@ -50,6 +50,50 @@ export const HOME_PAGE_QUERY = defineQuery(/* groq */ `
                 "lqip": asset->metadata.lqip,
                 "alt": coalesce(asset->altText, "")
             }
+        },
+        "imageSection": imageSection {
+            "image": image {
+                "assetId": asset->_id,
+                "width": asset->metadata.dimensions.width,
+                "height": asset->metadata.dimensions.height,
+                "lqip": asset->metadata.lqip,
+                crop {
+                    top,
+                    right,
+                    bottom,
+                    left
+                },
+                hotspot {
+                    x,
+                    y,
+                    width,
+                    height
+                },
+                "alt": alt[language == $locale][0].value
+            }
+        },
+        "story": story {
+            "title": title[language == $locale][0].value,
+            "text": text[language == $locale][0].value,
+            "image": image {
+                "assetId": asset->_id,
+                "width": asset->metadata.dimensions.width,
+                "height": asset->metadata.dimensions.height,
+                "lqip": asset->metadata.lqip,
+                crop {
+                    top,
+                    right,
+                    bottom,
+                    left
+                },
+                hotspot {
+                    x,
+                    y,
+                    width,
+                    height
+                },
+                "alt": alt[language == $locale][0].value
+            }
         }
     }
 `);

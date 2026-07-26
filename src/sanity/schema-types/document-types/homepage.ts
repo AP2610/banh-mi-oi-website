@@ -145,6 +145,60 @@ export const homePage = defineType({
                 }),
             ],
         }),
+        defineField({
+            name: 'imageSection',
+            title: 'Image section',
+            type: 'object',
+            description: 'A full-screen image displayed on the homepage.',
+            options: {
+                collapsible: true,
+                collapsed: true,
+            },
+            validation: (rule) => rule.required(),
+            fields: [
+                defineField({
+                    name: 'image',
+                    title: 'Image',
+                    type: 'accessibleImage',
+                    description: 'Choose the image displayed across the full screen and provide alternative text in French and English.',
+                    validation: (rule) => rule.required(),
+                }),
+            ],
+        }),
+        defineField({
+            name: 'story',
+            title: 'Our story',
+            type: 'object',
+            description: 'The story behind Bánh Mì Oi.',
+            options: {
+                collapsible: true,
+                collapsed: true,
+            },
+            validation: (rule) => rule.required(),
+            fields: [
+                defineField({
+                    name: 'title',
+                    title: 'Title',
+                    type: 'internationalizedArrayString',
+                    description: 'The heading displayed in the Our Story section.',
+                    validation: requiredFrenchAndEnglishTranslations,
+                }),
+                defineField({
+                    name: 'text',
+                    title: 'Text',
+                    type: 'internationalizedArrayText',
+                    description: 'The story text displayed below the heading.',
+                    validation: requiredFrenchAndEnglishTranslations,
+                }),
+                defineField({
+                    name: 'image',
+                    title: 'Image',
+                    type: 'accessibleImage',
+                    description: 'Choose the image displayed beside the story and provide alternative text in French and English.',
+                    validation: (rule) => rule.required(),
+                }),
+            ],
+        }),
     ],
     preview: {
         prepare: () => ({ title: 'Homepage' }),

@@ -20,6 +20,12 @@ export type SanityImageData = Readonly<{
     }> | null;
 }>;
 
+export type SanityContentImage = SanityImageData &
+    Readonly<{
+        lqip: string | null;
+        alt: string;
+    }>;
+
 // https://www.sanity.io/docs/image-url
 const builder = createImageUrlBuilder({ projectId, dataset });
 

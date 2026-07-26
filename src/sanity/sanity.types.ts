@@ -48,7 +48,36 @@ export type HomePage = {
             _key: string;
         }>;
     };
+    imageSection: {
+        image: AccessibleImage;
+    };
+    story: {
+        title: InternationalizedArrayString;
+        text: InternationalizedArrayText;
+        image: AccessibleImage;
+    };
 };
+
+export type AccessibleImage = {
+    _type: 'accessibleImage';
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: InternationalizedArrayString;
+};
+
+export type InternationalizedArrayText = Array<
+    {
+        _key: string;
+    } & InternationalizedArrayTextValue
+>;
+
+export type InternationalizedArrayString = Array<
+    {
+        _key: string;
+    } & InternationalizedArrayStringValue
+>;
 
 export type SanityImageCrop = {
     _type: 'sanity.imageCrop';
@@ -71,27 +100,6 @@ export type CallToAction = {
     label: InternationalizedArrayString;
     url: '/menu' | '/gallery' | '/#hero' | '/#story' | '/#menu' | '/#order' | '/#gallery' | '/#contact';
     variant: 'primary' | 'secondary';
-};
-
-export type InternationalizedArrayText = Array<
-    {
-        _key: string;
-    } & InternationalizedArrayTextValue
->;
-
-export type InternationalizedArrayString = Array<
-    {
-        _key: string;
-    } & InternationalizedArrayStringValue
->;
-
-export type AccessibleImage = {
-    _type: 'accessibleImage';
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: InternationalizedArrayString;
 };
 
 export type MediaTag = {
@@ -221,12 +229,12 @@ export type Geopoint = {
 export type AllSanitySchemaTypes =
     | SanityImageAssetReference
     | HomePage
+    | AccessibleImage
+    | InternationalizedArrayText
+    | InternationalizedArrayString
     | SanityImageCrop
     | SanityImageHotspot
     | CallToAction
-    | InternationalizedArrayText
-    | InternationalizedArrayString
-    | AccessibleImage
     | MediaTag
     | Slug
     | InternationalizedArrayTextValue
@@ -242,7 +250,7 @@ export type AllSanitySchemaTypes =
 
 // Source: src/sanity/queries/home-page.ts
 // Variable: HOME_PAGE_QUERY
-// Query: *[_id == "homePage"][0] {        _id,        "title": hero.heroTitle[language == $locale][0].value,        "subtitle": hero.heroSubtitle[language == $locale][0].value,        "primaryCta": hero.primaryCta {            "label": label[language == $locale][0].value,            url,            variant        },        "secondaryCta": hero.secondaryCta {            "label": label[language == $locale][0].value,            url,            variant        },        "image": hero.image {            "assetId": asset->_id,            "lqip": asset->metadata.lqip,            "width": asset->metadata.dimensions.width,            "height": asset->metadata.dimensions.height,            crop {                top,                right,                bottom,                left            },            hotspot {                x,                y,                width,                height            },            "alt": alt[language == $locale][0].value        },        "carousel": carousel {            "title": title[language == $locale][0].value,            "subtitle": subtitle[language == $locale][0].value,            "cta": cta {                "label": label[language == $locale][0].value,                "url": "/gallery",                variant            },            "images": images[] {                _key,                "assetId": asset->_id,                "width": asset->metadata.dimensions.width,                "height": asset->metadata.dimensions.height,                "lqip": asset->metadata.lqip,                "alt": coalesce(asset->altText, "")            }        }    }
+// Query: *[_id == "homePage"][0] {        _id,        "title": hero.heroTitle[language == $locale][0].value,        "subtitle": hero.heroSubtitle[language == $locale][0].value,        "primaryCta": hero.primaryCta {            "label": label[language == $locale][0].value,            url,            variant        },        "secondaryCta": hero.secondaryCta {            "label": label[language == $locale][0].value,            url,            variant        },        "image": hero.image {            "assetId": asset->_id,            "lqip": asset->metadata.lqip,            "width": asset->metadata.dimensions.width,            "height": asset->metadata.dimensions.height,            crop {                top,                right,                bottom,                left            },            hotspot {                x,                y,                width,                height            },            "alt": alt[language == $locale][0].value        },        "carousel": carousel {            "title": title[language == $locale][0].value,            "subtitle": subtitle[language == $locale][0].value,            "cta": cta {                "label": label[language == $locale][0].value,                "url": "/gallery",                variant            },            "images": images[] {                _key,                "assetId": asset->_id,                "width": asset->metadata.dimensions.width,                "height": asset->metadata.dimensions.height,                "lqip": asset->metadata.lqip,                "alt": coalesce(asset->altText, "")            }        },        "imageSection": imageSection {            "image": image {                "assetId": asset->_id,                "width": asset->metadata.dimensions.width,                "height": asset->metadata.dimensions.height,                "lqip": asset->metadata.lqip,                crop {                    top,                    right,                    bottom,                    left                },                hotspot {                    x,                    y,                    width,                    height                },                "alt": alt[language == $locale][0].value            }        },        "story": story {            "title": title[language == $locale][0].value,            "text": text[language == $locale][0].value,            "image": image {                "assetId": asset->_id,                "width": asset->metadata.dimensions.width,                "height": asset->metadata.dimensions.height,                "lqip": asset->metadata.lqip,                crop {                    top,                    right,                    bottom,                    left                },                hotspot {                    x,                    y,                    width,                    height                },                "alt": alt[language == $locale][0].value            }        }    }
 export type HOME_PAGE_QUERY_RESULT =
     | {
           _id: 'homePage';
@@ -252,6 +260,8 @@ export type HOME_PAGE_QUERY_RESULT =
           secondaryCta: null;
           image: null;
           carousel: null;
+          imageSection: null;
+          story: null;
       }
     | {
           _id: 'homePage';
@@ -302,6 +312,50 @@ export type HOME_PAGE_QUERY_RESULT =
                   lqip: string | null;
                   alt: string | '';
               }>;
+          };
+          imageSection: {
+              image: {
+                  assetId: string | null;
+                  width: number | null;
+                  height: number | null;
+                  lqip: string | null;
+                  crop: {
+                      top: number;
+                      right: number;
+                      bottom: number;
+                      left: number;
+                  } | null;
+                  hotspot: {
+                      x: number;
+                      y: number;
+                      width: number;
+                      height: number;
+                  } | null;
+                  alt: string | null;
+              };
+          };
+          story: {
+              title: string | null;
+              text: string | null;
+              image: {
+                  assetId: string | null;
+                  width: number | null;
+                  height: number | null;
+                  lqip: string | null;
+                  crop: {
+                      top: number;
+                      right: number;
+                      bottom: number;
+                      left: number;
+                  } | null;
+                  hotspot: {
+                      x: number;
+                      y: number;
+                      width: number;
+                      height: number;
+                  } | null;
+                  alt: string | null;
+              };
           };
       }
     | null;
