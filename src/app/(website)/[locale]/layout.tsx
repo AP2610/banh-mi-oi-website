@@ -71,7 +71,7 @@ const WebsiteLayout = async ({ children, params }: WebsiteLayoutProps) => {
                     <div className="website-root flex min-h-svh flex-col bg-background font-body text-foreground antialiased">
                         <SiteHeader />
 
-                        <main className="flex-1">{children}</main>
+                        <main className="flex-1 pt-header">{children}</main>
 
                         <SiteFooter />
                     </div>

@@ -40,7 +40,7 @@ export const Hero = ({ hero }: HeroProps) => {
     };
 
     return (
-        <div id="hero" className="relative isolate min-h-svh overflow-hidden bg-black">
+        <div id="hero" className="relative isolate -mt-header min-h-svh overflow-hidden bg-black">
             <Image
                 src={buildSanityImageUrl(hero.image)}
                 sizes="100vw"

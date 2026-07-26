@@ -58,14 +58,7 @@ export const Gallery = ({ gallery, locale }: GalleryProps) => {
     return (
         <div className="bg-background text-foreground">
             <div className="bg-secondary text-white">
-                <Section
-                    isFullWidth
-                    animateOnScroll
-                    paddingTop="large"
-                    paddingBottom="large"
-                    aria-labelledby="gallery-page-heading"
-                    className="pt-36 sm:pt-40"
-                >
+                <Section isFullWidth animateOnScroll paddingTop="large" paddingBottom="large" aria-labelledby="gallery-page-heading">
                     <div className="container mx-auto px-5 sm:px-8 lg:px-10">
                         <Heading level="h1" id="gallery-page-heading" className="text-white">
                             {gallery.title}

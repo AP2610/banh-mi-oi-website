@@ -11,6 +11,9 @@
     --color-black: rgba(20, 20, 20, 1);
     --color-white: rgba(250, 250, 250, 1);
     --color-light-gray: rgba(201, 206, 214, 1);
+
+    /* Spacing */
+    --spacing-header: 6rem;
 }
 
 @theme inline {
@@ -31,6 +34,12 @@
     text-shadow:
         2px 2px 6px var(--color-orangeade),
         4px 4px 8px var(--color-black);
+}
+
+@media (width >= 40rem) {
+    :root {
+        --spacing-header: 6.5rem;
+    }
 }
 
 @layer base {
