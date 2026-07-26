@@ -33,6 +33,23 @@ export const HOME_PAGE_QUERY = defineQuery(/* groq */ `
                 height
             },
             "alt": alt[language == $locale][0].value
+        },
+        "carousel": carousel {
+            "title": title[language == $locale][0].value,
+            "subtitle": subtitle[language == $locale][0].value,
+            "cta": cta {
+                "label": label[language == $locale][0].value,
+                "url": "/gallery",
+                variant
+            },
+            "images": images[] {
+                _key,
+                "assetId": asset->_id,
+                "width": asset->metadata.dimensions.width,
+                "height": asset->metadata.dimensions.height,
+                "lqip": asset->metadata.lqip,
+                "alt": coalesce(asset->altText, "")
+            }
         }
     }
 `);

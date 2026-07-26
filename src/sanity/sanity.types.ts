@@ -15,6 +15,13 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: schema.json
+export type SanityImageAssetReference = {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+};
+
 export type HomePage = {
     _id: string;
     _type: 'homePage';
@@ -28,42 +35,20 @@ export type HomePage = {
         secondaryCta: CallToAction;
         image: AccessibleImage;
     };
+    carousel: {
+        title: InternationalizedArrayString;
+        subtitle?: InternationalizedArrayText;
+        cta?: CallToAction;
+        images: Array<{
+            asset?: SanityImageAssetReference;
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: 'image';
+            _key: string;
+        }>;
+    };
 };
-
-export type SanityImageAssetReference = {
-    _ref: string;
-    _type: 'reference';
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-};
-
-export type AccessibleImage = {
-    _type: 'accessibleImage';
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: InternationalizedArrayString;
-};
-
-export type CallToAction = {
-    _type: 'callToAction';
-    label: InternationalizedArrayString;
-    url: '/menu' | '/#hero' | '/#story' | '/#menu' | '/#order' | '/#gallery' | '/#contact';
-    variant: 'primary' | 'secondary';
-};
-
-export type InternationalizedArrayText = Array<
-    {
-        _key: string;
-    } & InternationalizedArrayTextValue
->;
-
-export type InternationalizedArrayString = Array<
-    {
-        _key: string;
-    } & InternationalizedArrayStringValue
->;
 
 export type SanityImageCrop = {
     _type: 'sanity.imageCrop';
@@ -79,6 +64,49 @@ export type SanityImageHotspot = {
     y: number;
     height: number;
     width: number;
+};
+
+export type CallToAction = {
+    _type: 'callToAction';
+    label: InternationalizedArrayString;
+    url: '/menu' | '/gallery' | '/#hero' | '/#story' | '/#menu' | '/#order' | '/#gallery' | '/#contact';
+    variant: 'primary' | 'secondary';
+};
+
+export type InternationalizedArrayText = Array<
+    {
+        _key: string;
+    } & InternationalizedArrayTextValue
+>;
+
+export type InternationalizedArrayString = Array<
+    {
+        _key: string;
+    } & InternationalizedArrayStringValue
+>;
+
+export type AccessibleImage = {
+    _type: 'accessibleImage';
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: InternationalizedArrayString;
+};
+
+export type MediaTag = {
+    _id: string;
+    _type: 'media.tag';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: Slug;
+};
+
+export type Slug = {
+    _type: 'slug';
+    current: string;
+    source?: string;
 };
 
 export type InternationalizedArrayTextValue = {
@@ -190,21 +218,17 @@ export type Geopoint = {
     alt?: number;
 };
 
-export type Slug = {
-    _type: 'slug';
-    current: string;
-    source?: string;
-};
-
 export type AllSanitySchemaTypes =
-    | HomePage
     | SanityImageAssetReference
-    | AccessibleImage
+    | HomePage
+    | SanityImageCrop
+    | SanityImageHotspot
     | CallToAction
     | InternationalizedArrayText
     | InternationalizedArrayString
-    | SanityImageCrop
-    | SanityImageHotspot
+    | AccessibleImage
+    | MediaTag
+    | Slug
     | InternationalizedArrayTextValue
     | InternationalizedArrayStringValue
     | SanityImagePaletteSwatch
@@ -214,12 +238,11 @@ export type AllSanitySchemaTypes =
     | SanityFileAsset
     | SanityAssetSourceData
     | SanityImageAsset
-    | Geopoint
-    | Slug;
+    | Geopoint;
 
 // Source: src/sanity/queries/home-page.ts
 // Variable: HOME_PAGE_QUERY
-// Query: *[_id == "homePage"][0] {        _id,        "title": hero.heroTitle[language == $locale][0].value,        "subtitle": hero.heroSubtitle[language == $locale][0].value,        "primaryCta": hero.primaryCta {            "label": label[language == $locale][0].value,            url,            variant        },        "secondaryCta": hero.secondaryCta {            "label": label[language == $locale][0].value,            url,            variant        },        "image": hero.image {            "assetId": asset->_id,            "lqip": asset->metadata.lqip,            "width": asset->metadata.dimensions.width,            "height": asset->metadata.dimensions.height,            crop {                top,                right,                bottom,                left            },            hotspot {                x,                y,                width,                height            },            "alt": alt[language == $locale][0].value        }    }
+// Query: *[_id == "homePage"][0] {        _id,        "title": hero.heroTitle[language == $locale][0].value,        "subtitle": hero.heroSubtitle[language == $locale][0].value,        "primaryCta": hero.primaryCta {            "label": label[language == $locale][0].value,            url,            variant        },        "secondaryCta": hero.secondaryCta {            "label": label[language == $locale][0].value,            url,            variant        },        "image": hero.image {            "assetId": asset->_id,            "lqip": asset->metadata.lqip,            "width": asset->metadata.dimensions.width,            "height": asset->metadata.dimensions.height,            crop {                top,                right,                bottom,                left            },            hotspot {                x,                y,                width,                height            },            "alt": alt[language == $locale][0].value        },        "carousel": carousel {            "title": title[language == $locale][0].value,            "subtitle": subtitle[language == $locale][0].value,            "cta": cta {                "label": label[language == $locale][0].value,                "url": "/gallery",                variant            },            "images": images[] {                _key,                "assetId": asset->_id,                "width": asset->metadata.dimensions.width,                "height": asset->metadata.dimensions.height,                "lqip": asset->metadata.lqip,                "alt": coalesce(asset->altText, "")            }        }    }
 export type HOME_PAGE_QUERY_RESULT =
     | {
           _id: 'homePage';
@@ -228,6 +251,7 @@ export type HOME_PAGE_QUERY_RESULT =
           primaryCta: null;
           secondaryCta: null;
           image: null;
+          carousel: null;
       }
     | {
           _id: 'homePage';
@@ -235,12 +259,12 @@ export type HOME_PAGE_QUERY_RESULT =
           subtitle: string | null;
           primaryCta: {
               label: string | null;
-              url: '/#contact' | '/#gallery' | '/#hero' | '/#menu' | '/#order' | '/#story' | '/menu';
+              url: '/#contact' | '/#gallery' | '/#hero' | '/#menu' | '/#order' | '/#story' | '/gallery' | '/menu';
               variant: 'primary' | 'secondary';
           };
           secondaryCta: {
               label: string | null;
-              url: '/#contact' | '/#gallery' | '/#hero' | '/#menu' | '/#order' | '/#story' | '/menu';
+              url: '/#contact' | '/#gallery' | '/#hero' | '/#menu' | '/#order' | '/#story' | '/gallery' | '/menu';
               variant: 'primary' | 'secondary';
           };
           image: {
@@ -261,6 +285,23 @@ export type HOME_PAGE_QUERY_RESULT =
                   height: number;
               } | null;
               alt: string | null;
+          };
+          carousel: {
+              title: string | null;
+              subtitle: string | null;
+              cta: {
+                  label: string | null;
+                  url: '/gallery';
+                  variant: 'primary' | 'secondary';
+              } | null;
+              images: Array<{
+                  _key: string;
+                  assetId: string | null;
+                  width: number | null;
+                  height: number | null;
+                  lqip: string | null;
+                  alt: string | '';
+              }>;
           };
       }
     | null;

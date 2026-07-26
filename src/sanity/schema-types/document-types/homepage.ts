@@ -1,5 +1,5 @@
 import { HiOutlineHome } from 'react-icons/hi2';
-import { defineField, defineType } from 'sanity';
+import { defineArrayMember, defineField, defineType } from 'sanity';
 
 import { requiredFrenchAndEnglishTranslations } from '../validations/validation';
 
@@ -88,6 +88,60 @@ export const homePage = defineType({
                     description: 'Choose the crop and focal point that should remain visible on different screen sizes.',
                     fieldset: 'heroImage',
                     validation: (rule) => rule.required(),
+                }),
+            ],
+        }),
+        defineField({
+            name: 'carousel',
+            title: 'Carousel',
+            type: 'object',
+            description: 'The homepage gallery preview.',
+            options: {
+                collapsible: true,
+                collapsed: true,
+            },
+            validation: (rule) => rule.required(),
+            fields: [
+                defineField({
+                    name: 'title',
+                    title: 'Title',
+                    type: 'internationalizedArrayString',
+                    description: 'The heading displayed beside the carousel.',
+                    validation: requiredFrenchAndEnglishTranslations,
+                }),
+                defineField({
+                    name: 'subtitle',
+                    title: 'Subtitle',
+                    type: 'internationalizedArrayText',
+                    description: 'Optional supporting text displayed below the heading.',
+                }),
+                defineField({
+                    name: 'cta',
+                    title: 'Call to action',
+                    type: 'callToAction',
+                    description: 'Optional button displayed below the carousel text. The destination is read-only and fixed to the Gallery page.',
+                    initialValue: {
+                        url: '/gallery',
+                        variant: 'primary',
+                    },
+                }),
+                defineField({
+                    name: 'images',
+                    title: 'Images',
+                    type: 'array',
+                    description: 'Choose and order the images displayed in the carousel.',
+                    of: [
+                        defineArrayMember({
+                            type: 'image',
+                            options: {
+                                hotspot: true,
+                            },
+                        }),
+                    ],
+                    options: {
+                        layout: 'grid',
+                    },
+                    validation: (rule) => rule.required().min(1).error('Add at least one image to the carousel.'),
                 }),
             ],
         }),

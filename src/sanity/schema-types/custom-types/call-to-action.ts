@@ -5,6 +5,7 @@ import { requiredFrenchAndEnglishTranslations } from '../validations/validation'
 
 const destinations = [
     { title: 'Menu page — /menu', value: '/menu' },
+    { title: 'Gallery page — /gallery', value: '/gallery' },
     { title: 'Homepage: Hero — /#hero', value: '/#hero' },
     { title: 'Homepage: Our story — /#story', value: '/#story' },
     { title: 'Homepage: Menu — /#menu', value: '/#menu' },
@@ -31,6 +32,7 @@ export const callToAction = defineType({
             title: 'Destination',
             type: 'string',
             description: 'Page URLs start with “/”. Homepage section URLs start with “/#”.',
+            readOnly: ({ path }) => path.includes('carousel'),
             options: {
                 list: destinations,
             },

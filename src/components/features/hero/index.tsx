@@ -5,8 +5,9 @@ import type { HOME_PAGE_QUERY_RESULT } from '@/sanity/sanity.types';
 import { buildSanityImageUrl, getCroppedImageDimensions, getSanityImageObjectPosition } from '@/sanity/lib/image';
 import { Section } from '@/components/layout/section';
 import { Button } from '@/components/ui/button';
+import { Heading } from '@/components/ui/heading';
 
-type QueryHero = NonNullable<HOME_PAGE_QUERY_RESULT>;
+type QueryHero = Extract<NonNullable<HOME_PAGE_QUERY_RESULT>, { image: object }>;
 type QueryImage = NonNullable<QueryHero['image']>;
 type QueryCallToAction = NonNullable<QueryHero['primaryCta']>;
 
@@ -14,7 +15,7 @@ type HomePageCallToAction = QueryCallToAction & {
     label: string;
 };
 
-export type HomePageHero = Omit<QueryHero, 'title' | 'subtitle' | 'primaryCta' | 'secondaryCta' | 'image'> & {
+export type HomePageHero = Pick<QueryHero, '_id'> & {
     title: string;
     subtitle: string;
     primaryCta: HomePageCallToAction | null;
@@ -68,12 +69,9 @@ export const Hero = ({ hero }: HeroProps) => {
                         className="mx-auto mb-12 h-auto w-full max-w-64 sm:max-w-72 md:mx-0 md:max-w-60"
                     />
 
-                    <h1
-                        id="hero-heading"
-                        className="font-heading text-5xl font-black text-white uppercase transition-[font-size] duration-500 sm:text-6xl md:text-5xl lg:text-6xl xl:text-7xl"
-                    >
+                    <Heading level="h1" id="hero-heading" className="text-white">
                         {hero.title}
-                    </h1>
+                    </Heading>
 
                     <p className="mt-6 text-base font-semibold text-pretty transition-[font-size] duration-500 md:font-normal lg:text-xl">
                         {hero.subtitle}
