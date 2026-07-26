@@ -26,15 +26,16 @@ export const Section = ({
     ...rest
 }: SectionProps) => {
     const sectionClasses = cn(
+        'transition-[padding] duration-500 ease-in-out',
         {
             container: !isFullWidth,
             'w-full': isFullWidth,
-            'pt-16': paddingTop === 'medium',
-            'pb-16': paddingBottom === 'medium',
-            'pt-8': paddingTop === 'small',
-            'pt-24': paddingTop === 'large',
-            'pb-8': paddingBottom === 'small',
-            'pb-24': paddingBottom === 'large',
+            'pt-8 sm:pt-10 lg:pt-12': paddingTop === 'small',
+            'pt-12 sm:pt-16 lg:pt-20': paddingTop === 'medium',
+            'pt-16 sm:pt-20 lg:pt-24': paddingTop === 'large',
+            'pb-8 sm:pb-10 lg:pb-12': paddingBottom === 'small',
+            'pb-12 sm:pb-16 lg:pb-20': paddingBottom === 'medium',
+            'pb-16 sm:pb-20 lg:pb-24': paddingBottom === 'large',
         },
         className,
     );

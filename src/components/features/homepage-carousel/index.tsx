@@ -24,8 +24,8 @@ type HomePageCarouselSectionProps = {
 };
 
 export const HomePageCarouselSection = ({ carousel }: HomePageCarouselSectionProps) => (
-    <div className="overflow-hidden bg-antique-white text-secondary">
-        <Section isFullWidth animateOnScroll id="gallery" aria-labelledby="carousel-heading" className="py-16 sm:py-20 lg:py-24">
+    <div id="gallery" className="overflow-hidden bg-antique-white text-secondary">
+        <Section isFullWidth animateOnScroll paddingTop="large" paddingBottom="large" aria-labelledby="carousel-heading">
             <div className="container mx-auto grid items-center gap-10 px-5 sm:px-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-16 lg:px-10">
                 <div>
                     <Heading level="h2" id="carousel-heading" className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl">
