@@ -42,7 +42,7 @@ const LocaleSwitch = ({ locale, pathname }: LocaleSwitchProps) => {
         const delay = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : SWITCH_DURATION;
 
         navigationTimer.current = window.setTimeout(() => {
-            router.replace(pathname, { locale: nextLocale });
+            router.replace(pathname, { locale: nextLocale, scroll: false });
         }, delay);
     };
 
