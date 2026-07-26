@@ -65,6 +65,7 @@ export const Hero = ({ hero }: HeroProps) => {
                         src="/logos/logo.svg"
                         width={850}
                         height={252}
+                        unoptimized
                         alt="Bánh Mì Oi!"
                         className="mx-auto mb-12 h-auto w-full max-w-64 sm:max-w-72 md:mx-0 md:max-w-60"
                     />

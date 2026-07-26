@@ -9,7 +9,7 @@ export const SiteHeader = () => (
         <div className="container mx-auto flex items-center justify-between px-5 py-5 sm:px-8 lg:px-10">
             {/* TODO: Translate this label based on the active locale. */}
             <Link href="/" className="inline-flex items-center" aria-label="Bánh Mì Oi !, accueil">
-                <Image src="/logos/logo-small.svg" width={820} height={448} alt="" className="h-14 w-auto sm:h-16" />
+                <Image src="/logos/logo-small.svg" width={820} height={448} unoptimized alt="" className="h-14 w-auto sm:h-16" />
             </Link>
 
             <div className="flex items-center gap-3">
