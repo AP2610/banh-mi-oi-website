@@ -7,22 +7,19 @@ import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils/cn';
 import { LanguageSwitcher } from '@/components/ui/language-switcher';
 
+const HEADER_BACKGROUND_SCROLL_THRESHOLD = 96;
+
 // TODO: Implement correct site header and connect to sanity Navigation schema
 export const SiteHeader = () => {
     const [showBackground, setShowBackground] = useState(false);
 
     useEffect(() => {
-        const hero = document.getElementById('hero');
+        const updateBackground = () => setShowBackground(window.scrollY >= HEADER_BACKGROUND_SCROLL_THRESHOLD);
 
-        if (!hero) return;
+        updateBackground();
+        window.addEventListener('scroll', updateBackground, { passive: true });
 
-        const observer = new IntersectionObserver(([entry]) => setShowBackground(entry.intersectionRatio <= 0.2), {
-            threshold: [0.2],
-        });
-
-        observer.observe(hero);
-
-        return () => observer.disconnect();
+        return () => window.removeEventListener('scroll', updateBackground);
     }, []);
 
     return (
@@ -30,7 +27,7 @@ export const SiteHeader = () => {
             <div
                 aria-hidden="true"
                 className={cn(
-                    'pointer-events-none absolute inset-x-0 top-0 -z-10 h-full bg-linear-to-b from-black/90 via-black/50 to-transparent backdrop-blur-md transition-opacity duration-500',
+                    'pointer-events-none absolute inset-x-0 top-0 -z-10 h-full bg-linear-to-b from-black/90 via-black/50 to-transparent transition-opacity duration-500',
                     showBackground ? 'opacity-100' : 'opacity-0',
                 )}
             />

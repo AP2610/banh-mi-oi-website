@@ -5,6 +5,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 import { SiteHeader } from '@/components/layout/site-header';
+import { SiteFooter } from '@/components/layout/site-footer';
 import { routing } from '@/i18n/routing';
 
 import '../../../styles/globals.css';
@@ -71,6 +72,8 @@ const WebsiteLayout = async ({ children, params }: WebsiteLayoutProps) => {
                         <SiteHeader />
 
                         <main className="flex-1">{children}</main>
+
+                        <SiteFooter />
                     </div>
                 </NextIntlClientProvider>
             </body>
