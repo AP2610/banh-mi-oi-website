@@ -55,30 +55,32 @@ export const Hero = ({ hero }: HeroProps) => {
 
             <div
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-y-0 left-0 -z-10 w-full bg-black/60 md:w-[70%] md:bg-transparent md:bg-linear-to-r md:from-black/90 md:via-black/60 md:to-transparent"
+                className="pointer-events-none absolute inset-y-0 left-0 -z-10 w-full bg-black/70 md:w-[70%] md:bg-transparent md:bg-linear-to-r md:from-black/90 md:via-black/60 md:to-transparent"
             />
 
             <div className="container mx-auto flex min-h-svh items-center px-5 py-16 sm:px-8 md:py-10 lg:px-10">
-                <div className="w-full text-center text-white md:w-[70%] md:text-left">
+                <div className="w-full text-center text-white transition-[width] md:w-[65%] md:text-left 2xl:w-[55%]">
                     <Image
                         src="/logos/logo.svg"
                         width={850}
                         height={252}
                         alt="Bánh Mì Oi!"
-                        className="mb-12 h-auto w-full max-w-64 sm:max-w-72 md:max-w-60"
+                        className="mx-auto mb-12 h-auto w-full max-w-64 sm:max-w-72 md:mx-0 md:max-w-60"
                     />
 
                     <h1
                         id="hero-heading"
-                        className="font-heading text-5xl font-black text-white uppercase sm:text-6xl md:text-5xl lg:text-6xl xl:text-7xl"
+                        className="font-heading text-5xl font-black text-white uppercase transition-[font-size] duration-500 sm:text-6xl md:text-5xl lg:text-6xl xl:text-7xl"
                     >
                         {hero.title}
                     </h1>
 
-                    <p className="mt-6 text-base font-normal text-pretty lg:text-xl">{hero.subtitle}</p>
+                    <p className="mt-6 text-base font-semibold text-pretty transition-[font-size] duration-500 md:font-normal lg:text-xl">
+                        {hero.subtitle}
+                    </p>
 
                     {hero.primaryCta || hero.secondaryCta ? (
-                        <div className="mt-8 flex w-full flex-row gap-3 md:w-[50%] md:justify-start">
+                        <div className="mt-8 flex w-full flex-col gap-3 md:w-[65%] md:flex-row md:justify-start lg:w-[50%]">
                             {hero.primaryCta ? (
                                 <Button as={Link} href={hero.primaryCta.url} variant={hero.primaryCta.variant} className="flex-1 px-4">
                                     {hero.primaryCta.label}
