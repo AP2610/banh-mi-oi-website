@@ -38,7 +38,7 @@ export type HomePage = {
     carousel: {
         title: InternationalizedArrayString;
         subtitle?: InternationalizedArrayText;
-        cta?: CallToAction;
+        cta?: OptionalCallToAction;
         images: Array<{
             asset?: SanityImageAssetReference;
             media?: unknown;
@@ -54,6 +54,13 @@ export type HomePage = {
     story: {
         title: InternationalizedArrayString;
         text: InternationalizedArrayText;
+        image: AccessibleImage;
+    };
+    order: {
+        title: InternationalizedArrayString;
+        subtitle?: InternationalizedArrayText;
+        uberEatsUrl: string;
+        deliverooUrl: string;
         image: AccessibleImage;
     };
 };
@@ -95,11 +102,38 @@ export type SanityImageHotspot = {
     width: number;
 };
 
+export type OptionalCallToAction = {
+    _type: 'optionalCallToAction';
+    label?: InternationalizedArrayString;
+    url?: '/menu' | '/gallery' | '/#hero' | '/#story' | '/#menu' | '/#order' | '/#gallery' | '/#contact';
+    variant?: 'primary' | 'secondary';
+};
+
 export type CallToAction = {
     _type: 'callToAction';
     label: InternationalizedArrayString;
     url: '/menu' | '/gallery' | '/#hero' | '/#story' | '/#menu' | '/#order' | '/#gallery' | '/#contact';
     variant: 'primary' | 'secondary';
+};
+
+export type GalleryPage = {
+    _id: string;
+    _type: 'galleryPage';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title: InternationalizedArrayString;
+    subtitle: InternationalizedArrayText;
+    cta?: OptionalCallToAction;
+    images: Array<{
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt: InternationalizedArrayString;
+        _type: 'image';
+        _key: string;
+    }>;
 };
 
 export type MediaTag = {
@@ -234,7 +268,9 @@ export type AllSanitySchemaTypes =
     | InternationalizedArrayString
     | SanityImageCrop
     | SanityImageHotspot
+    | OptionalCallToAction
     | CallToAction
+    | GalleryPage
     | MediaTag
     | Slug
     | InternationalizedArrayTextValue
@@ -248,9 +284,52 @@ export type AllSanitySchemaTypes =
     | SanityImageAsset
     | Geopoint;
 
+// Source: src/sanity/queries/gallery-page.ts
+// Variable: GALLERY_PAGE_QUERY
+// Query: *[_id == "galleryPage"][0] {        _id,        "title": title[language == $locale][0].value,        "subtitle": subtitle[language == $locale][0].value,        "cta": cta {            "label": label[language == $locale][0].value,            url,            variant        },        "images": images[] {            _key,            "assetId": asset->_id,            "width": asset->metadata.dimensions.width,            "height": asset->metadata.dimensions.height,            "lqip": asset->metadata.lqip,            crop {                top,                right,                bottom,                left            },            hotspot {                x,                y,                width,                height            },            "alt": alt[language == $locale][0].value        }    }
+export type GALLERY_PAGE_QUERY_RESULT =
+    | {
+          _id: 'galleryPage';
+          title: null;
+          subtitle: null;
+          cta: null;
+          images: null;
+      }
+    | {
+          _id: 'galleryPage';
+          title: string | null;
+          subtitle: string | null;
+          cta: {
+              label: string | null;
+              url: '/#contact' | '/#gallery' | '/#hero' | '/#menu' | '/#order' | '/#story' | '/gallery' | '/menu' | null;
+              variant: 'primary' | 'secondary' | null;
+          } | null;
+          images: Array<{
+              _key: string;
+              assetId: string | null;
+              width: number | null;
+              height: number | null;
+              lqip: string | null;
+              crop: {
+                  top: number;
+                  right: number;
+                  bottom: number;
+                  left: number;
+              } | null;
+              hotspot: {
+                  x: number;
+                  y: number;
+                  width: number;
+                  height: number;
+              } | null;
+              alt: string | null;
+          }>;
+      }
+    | null;
+
 // Source: src/sanity/queries/home-page.ts
 // Variable: HOME_PAGE_QUERY
-// Query: *[_id == "homePage"][0] {        _id,        "title": hero.heroTitle[language == $locale][0].value,        "subtitle": hero.heroSubtitle[language == $locale][0].value,        "primaryCta": hero.primaryCta {            "label": label[language == $locale][0].value,            url,            variant        },        "secondaryCta": hero.secondaryCta {            "label": label[language == $locale][0].value,            url,            variant        },        "image": hero.image {            "assetId": asset->_id,            "lqip": asset->metadata.lqip,            "width": asset->metadata.dimensions.width,            "height": asset->metadata.dimensions.height,            crop {                top,                right,                bottom,                left            },            hotspot {                x,                y,                width,                height            },            "alt": alt[language == $locale][0].value        },        "carousel": carousel {            "title": title[language == $locale][0].value,            "subtitle": subtitle[language == $locale][0].value,            "cta": cta {                "label": label[language == $locale][0].value,                "url": "/gallery",                variant            },            "images": images[] {                _key,                "assetId": asset->_id,                "width": asset->metadata.dimensions.width,                "height": asset->metadata.dimensions.height,                "lqip": asset->metadata.lqip,                "alt": coalesce(asset->altText, "")            }        },        "imageSection": imageSection {            "image": image {                "assetId": asset->_id,                "width": asset->metadata.dimensions.width,                "height": asset->metadata.dimensions.height,                "lqip": asset->metadata.lqip,                crop {                    top,                    right,                    bottom,                    left                },                hotspot {                    x,                    y,                    width,                    height                },                "alt": alt[language == $locale][0].value            }        },        "story": story {            "title": title[language == $locale][0].value,            "text": text[language == $locale][0].value,            "image": image {                "assetId": asset->_id,                "width": asset->metadata.dimensions.width,                "height": asset->metadata.dimensions.height,                "lqip": asset->metadata.lqip,                crop {                    top,                    right,                    bottom,                    left                },                hotspot {                    x,                    y,                    width,                    height                },                "alt": alt[language == $locale][0].value            }        }    }
+// Query: *[_id == "homePage"][0] {        _id,        "title": hero.heroTitle[language == $locale][0].value,        "subtitle": hero.heroSubtitle[language == $locale][0].value,        "primaryCta": hero.primaryCta {            "label": label[language == $locale][0].value,            url,            variant        },        "secondaryCta": hero.secondaryCta {            "label": label[language == $locale][0].value,            url,            variant        },        "image": hero.image {            "assetId": asset->_id,            "lqip": asset->metadata.lqip,            "width": asset->metadata.dimensions.width,            "height": asset->metadata.dimensions.height,            crop {                top,                right,                bottom,                left            },            hotspot {                x,                y,                width,                height            },            "alt": alt[language == $locale][0].value        },        "carousel": carousel {            "title": title[language == $locale][0].value,            "subtitle": subtitle[language == $locale][0].value,            "cta": cta {                "label": label[language == $locale][0].value,                "url": "/gallery",                variant            },            "images": images[] {                _key,                "assetId": asset->_id,                "width": asset->metadata.dimensions.width,                "height": asset->metadata.dimensions.height,                "lqip": asset->metadata.lqip,                "alt": coalesce(asset->altText, "")            }        },        "imageSection": imageSection {            "image": image {                "assetId": asset->_id,                "width": asset->metadata.dimensions.width,                "height": asset->metadata.dimensions.height,                "lqip": asset->metadata.lqip,                crop {                    top,                    right,                    bottom,                    left                },                hotspot {                    x,                    y,                    width,                    height                },                "alt": alt[language == $locale][0].value            }        },        "story": story {            "title": title[language == $locale][0].value,            "text": text[language == $locale][0].value,            "image": image {                "assetId": asset->_id,                "width": asset->metadata.dimensions.width,                "height": asset->metadata.dimensions.height,                "lqip": asset->metadata.lqip,                crop {                    top,                    right,                    bottom,                    left                },                hotspot {                    x,                    y,                    width,                    height                },                "alt": alt[language == $locale][0].value            }        },        "order": order {            "title": title[language == $locale][0].value,            "subtitle": subtitle[language == $locale][0].value,            uberEatsUrl,            deliverooUrl,            "image": image {                "assetId": asset->_id,                "width": asset->metadata.dimensions.width,                "height": asset->metadata.dimensions.height,                "lqip": asset->metadata.lqip,                crop {                    top,                    right,                    bottom,                    left                },                hotspot {                    x,                    y,                    width,                    height                },                "alt": alt[language == $locale][0].value            }        }    }
 export type HOME_PAGE_QUERY_RESULT =
     | {
           _id: 'homePage';
@@ -262,6 +341,7 @@ export type HOME_PAGE_QUERY_RESULT =
           carousel: null;
           imageSection: null;
           story: null;
+          order: null;
       }
     | {
           _id: 'homePage';
@@ -302,7 +382,7 @@ export type HOME_PAGE_QUERY_RESULT =
               cta: {
                   label: string | null;
                   url: '/gallery';
-                  variant: 'primary' | 'secondary';
+                  variant: 'primary' | 'secondary' | null;
               } | null;
               images: Array<{
                   _key: string;
@@ -337,6 +417,31 @@ export type HOME_PAGE_QUERY_RESULT =
           story: {
               title: string | null;
               text: string | null;
+              image: {
+                  assetId: string | null;
+                  width: number | null;
+                  height: number | null;
+                  lqip: string | null;
+                  crop: {
+                      top: number;
+                      right: number;
+                      bottom: number;
+                      left: number;
+                  } | null;
+                  hotspot: {
+                      x: number;
+                      y: number;
+                      width: number;
+                      height: number;
+                  } | null;
+                  alt: string | null;
+              };
+          };
+          order: {
+              title: string | null;
+              subtitle: string | null;
+              uberEatsUrl: string;
+              deliverooUrl: string;
               image: {
                   assetId: string | null;
                   width: number | null;

@@ -94,6 +94,31 @@ export const HOME_PAGE_QUERY = defineQuery(/* groq */ `
                 },
                 "alt": alt[language == $locale][0].value
             }
+        },
+        "order": order {
+            "title": title[language == $locale][0].value,
+            "subtitle": subtitle[language == $locale][0].value,
+            uberEatsUrl,
+            deliverooUrl,
+            "image": image {
+                "assetId": asset->_id,
+                "width": asset->metadata.dimensions.width,
+                "height": asset->metadata.dimensions.height,
+                "lqip": asset->metadata.lqip,
+                crop {
+                    top,
+                    right,
+                    bottom,
+                    left
+                },
+                hotspot {
+                    x,
+                    y,
+                    width,
+                    height
+                },
+                "alt": alt[language == $locale][0].value
+            }
         }
     }
 `);

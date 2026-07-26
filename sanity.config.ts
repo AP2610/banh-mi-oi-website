@@ -13,7 +13,10 @@ import { apiVersion, dataset, projectId } from './src/sanity/env';
 import { schema } from './src/sanity/schema-types';
 import { structure } from './src/sanity/structure';
 import { internationalizedArray } from 'sanity-plugin-internationalized-array';
+import { imageAssetPickerPlugin } from 'sanity-plugin-image-asset-picker';
 import { media } from 'sanity-plugin-media';
+
+const singletonTypes = new Set(['galleryPage', 'homePage']);
 
 export default defineConfig({
     basePath: '/studio',
@@ -21,8 +24,8 @@ export default defineConfig({
     dataset,
     document: {
         actions: (previousActions, { schemaType }) =>
-            schemaType === 'homePage' ? previousActions.filter(({ action }) => action !== 'duplicate') : previousActions,
-        newDocumentOptions: (previousOptions) => previousOptions.filter(({ templateId }) => templateId !== 'homePage'),
+            singletonTypes.has(schemaType) ? previousActions.filter(({ action }) => action !== 'duplicate') : previousActions,
+        newDocumentOptions: (previousOptions) => previousOptions.filter(({ templateId }) => !singletonTypes.has(templateId)),
     },
     // Add and edit the content schema in the './sanity/schema-types' folder
     schema,
@@ -39,6 +42,7 @@ export default defineConfig({
             defaultLanguages: ['fr', 'en'],
             fieldTypes: ['string', 'text'],
         }),
+        imageAssetPickerPlugin(),
         media(),
     ],
 });

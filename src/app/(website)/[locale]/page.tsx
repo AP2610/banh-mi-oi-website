@@ -1,6 +1,7 @@
 import { HomePageCarouselSection, type HomePageCarousel } from '@/components/features/homepage-carousel';
 import { Hero, type HomePageHero } from '@/components/features/hero';
 import { HomePageImageSection, type HomePageImageSectionData } from '@/components/features/homepage-image-section';
+import { OrderNow, type HomePageOrder } from '@/components/features/order-now';
 import { OurStory, type HomePageStory } from '@/components/features/our-story';
 import type { Locale } from '@/i18n/routing';
 import { sanityFetch } from '@/sanity/lib/fetch';
@@ -14,6 +15,7 @@ type HomePageData = HomePageHero & {
     carousel: HomePageCarousel;
     imageSection: HomePageImageSectionData;
     story: HomePageStory;
+    order: HomePageOrder;
 };
 
 const HomePage = async ({ params }: HomePageProps) => {
@@ -30,6 +32,7 @@ const HomePage = async ({ params }: HomePageProps) => {
             <HomePageCarouselSection carousel={page.carousel} />
             <HomePageImageSection section={page.imageSection} />
             <OurStory story={page.story} />
+            <OrderNow order={page.order} />
         </>
     );
 };
