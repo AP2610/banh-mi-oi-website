@@ -1,18 +1,8 @@
 import { HiOutlineCursorArrowRays } from 'react-icons/hi2';
 import { defineField, defineType } from 'sanity';
 
+import { destinations } from '../../lib/types';
 import { requiredFrenchAndEnglishTranslations } from '../validations/validation';
-
-const destinations = [
-    { title: 'Menu page — /menu', value: '/menu' },
-    { title: 'Gallery page — /gallery', value: '/gallery' },
-    { title: 'Homepage: Hero — /#hero', value: '/#hero' },
-    { title: 'Homepage: Our story — /#story', value: '/#story' },
-    { title: 'Homepage: Menu — /#menu', value: '/#menu' },
-    { title: 'Homepage: Order — /#order', value: '/#order' },
-    { title: 'Homepage: Gallery — /#gallery', value: '/#gallery' },
-    { title: 'Homepage: Contact — /#contact', value: '/#contact' },
-];
 
 const createCallToActionFields = (isRequired: boolean) => [
     defineField({
@@ -42,6 +32,7 @@ const createCallToActionFields = (isRequired: boolean) => [
             list: [
                 { title: 'Primary', value: 'primary' },
                 { title: 'Secondary', value: 'secondary' },
+                { title: 'Inverse', value: 'inverse' },
             ],
             layout: 'radio',
         },

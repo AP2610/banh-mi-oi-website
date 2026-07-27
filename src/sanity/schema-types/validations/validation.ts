@@ -59,7 +59,7 @@ const validateCallToActionFields = (value: unknown): true | ValidationError[] =>
         errors.push({ message: 'A destination is required.', path: ['url'] });
     }
 
-    if (callToAction.variant !== 'primary' && callToAction.variant !== 'secondary') {
+    if (callToAction.variant !== 'primary' && callToAction.variant !== 'secondary' && callToAction.variant !== 'inverse') {
         errors.push({ message: 'A variant is required.', path: ['variant'] });
     }
 

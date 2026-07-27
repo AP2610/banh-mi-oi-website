@@ -16,7 +16,7 @@ import { internationalizedArray } from 'sanity-plugin-internationalized-array';
 import { imageAssetPickerPlugin } from 'sanity-plugin-image-asset-picker';
 import { media } from 'sanity-plugin-media';
 
-const singletonTypes = new Set(['galleryPage', 'homePage']);
+const singletonTypes = new Set(['galleryPage', 'homePage', 'menuPage', 'navigationMenu']);
 
 export default defineConfig({
     basePath: '/studio',

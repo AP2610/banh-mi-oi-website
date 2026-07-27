@@ -15,12 +15,82 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: schema.json
+export type NavigationMenu = {
+    _id: string;
+    _type: 'navigationMenu';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    links: Array<{
+        label: InternationalizedArrayString;
+        url: '/menu' | '/gallery' | '/#hero' | '/#story' | '/#menu' | '/#order' | '/#gallery' | '/#contact';
+        _type: 'navigationLink';
+        _key: string;
+    }>;
+};
+
+export type InternationalizedArrayString = Array<
+    {
+        _key: string;
+    } & InternationalizedArrayStringValue
+>;
+
 export type SanityImageAssetReference = {
     _ref: string;
     _type: 'reference';
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
 };
+
+export type MenuPage = {
+    _id: string;
+    _type: 'menuPage';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title: InternationalizedArrayString;
+    subtitle: InternationalizedArrayText;
+    images: Array<{
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt: InternationalizedArrayString;
+        _type: 'image';
+        _key: string;
+    }>;
+    cta: CallToAction;
+    downloadLabel: InternationalizedArrayString;
+};
+
+export type CallToAction = {
+    _type: 'callToAction';
+    label: InternationalizedArrayString;
+    url: '/menu' | '/gallery' | '/#hero' | '/#story' | '/#menu' | '/#order' | '/#gallery' | '/#contact';
+    variant: 'primary' | 'secondary' | 'inverse';
+};
+
+export type SanityImageCrop = {
+    _type: 'sanity.imageCrop';
+    top: number;
+    bottom: number;
+    left: number;
+    right: number;
+};
+
+export type SanityImageHotspot = {
+    _type: 'sanity.imageHotspot';
+    x: number;
+    y: number;
+    height: number;
+    width: number;
+};
+
+export type InternationalizedArrayText = Array<
+    {
+        _key: string;
+    } & InternationalizedArrayTextValue
+>;
 
 export type HomePage = {
     _id: string;
@@ -74,46 +144,11 @@ export type AccessibleImage = {
     alt: InternationalizedArrayString;
 };
 
-export type InternationalizedArrayText = Array<
-    {
-        _key: string;
-    } & InternationalizedArrayTextValue
->;
-
-export type InternationalizedArrayString = Array<
-    {
-        _key: string;
-    } & InternationalizedArrayStringValue
->;
-
-export type SanityImageCrop = {
-    _type: 'sanity.imageCrop';
-    top: number;
-    bottom: number;
-    left: number;
-    right: number;
-};
-
-export type SanityImageHotspot = {
-    _type: 'sanity.imageHotspot';
-    x: number;
-    y: number;
-    height: number;
-    width: number;
-};
-
 export type OptionalCallToAction = {
     _type: 'optionalCallToAction';
     label?: InternationalizedArrayString;
     url?: '/menu' | '/gallery' | '/#hero' | '/#story' | '/#menu' | '/#order' | '/#gallery' | '/#contact';
-    variant?: 'primary' | 'secondary';
-};
-
-export type CallToAction = {
-    _type: 'callToAction';
-    label: InternationalizedArrayString;
-    url: '/menu' | '/gallery' | '/#hero' | '/#story' | '/#menu' | '/#order' | '/#gallery' | '/#contact';
-    variant: 'primary' | 'secondary';
+    variant?: 'primary' | 'secondary' | 'inverse';
 };
 
 export type GalleryPage = {
@@ -261,15 +296,17 @@ export type Geopoint = {
 };
 
 export type AllSanitySchemaTypes =
-    | SanityImageAssetReference
-    | HomePage
-    | AccessibleImage
-    | InternationalizedArrayText
+    | NavigationMenu
     | InternationalizedArrayString
+    | SanityImageAssetReference
+    | MenuPage
+    | CallToAction
     | SanityImageCrop
     | SanityImageHotspot
+    | InternationalizedArrayText
+    | HomePage
+    | AccessibleImage
     | OptionalCallToAction
-    | CallToAction
     | GalleryPage
     | MediaTag
     | Slug
@@ -301,8 +338,38 @@ export type GALLERY_PAGE_QUERY_RESULT =
           subtitle: string | null;
           cta: {
               label: string | null;
+              url: '/#contact' | '/#gallery' | '/#hero' | '/#menu' | '/#order' | '/#story' | '/gallery' | '/menu';
+              variant: 'inverse' | 'primary' | 'secondary';
+          };
+          images: Array<{
+              _key: string;
+              assetId: string | null;
+              width: number | null;
+              height: number | null;
+              lqip: string | null;
+              crop: {
+                  top: number;
+                  right: number;
+                  bottom: number;
+                  left: number;
+              } | null;
+              hotspot: {
+                  x: number;
+                  y: number;
+                  width: number;
+                  height: number;
+              } | null;
+              alt: string | null;
+          }>;
+      }
+    | {
+          _id: 'galleryPage';
+          title: string | null;
+          subtitle: string | null;
+          cta: {
+              label: string | null;
               url: '/#contact' | '/#gallery' | '/#hero' | '/#menu' | '/#order' | '/#story' | '/gallery' | '/menu' | null;
-              variant: 'primary' | 'secondary' | null;
+              variant: 'inverse' | 'primary' | 'secondary' | null;
           } | null;
           images: Array<{
               _key: string;
@@ -350,12 +417,12 @@ export type HOME_PAGE_QUERY_RESULT =
           primaryCta: {
               label: string | null;
               url: '/#contact' | '/#gallery' | '/#hero' | '/#menu' | '/#order' | '/#story' | '/gallery' | '/menu';
-              variant: 'primary' | 'secondary';
+              variant: 'inverse' | 'primary' | 'secondary';
           };
           secondaryCta: {
               label: string | null;
               url: '/#contact' | '/#gallery' | '/#hero' | '/#menu' | '/#order' | '/#story' | '/gallery' | '/menu';
-              variant: 'primary' | 'secondary';
+              variant: 'inverse' | 'primary' | 'secondary';
           };
           image: {
               assetId: string | null;
@@ -382,7 +449,7 @@ export type HOME_PAGE_QUERY_RESULT =
               cta: {
                   label: string | null;
                   url: '/gallery';
-                  variant: 'primary' | 'secondary' | null;
+                  variant: 'inverse' | 'primary' | 'secondary' | null;
               } | null;
               images: Array<{
                   _key: string;
@@ -462,5 +529,109 @@ export type HOME_PAGE_QUERY_RESULT =
                   alt: string | null;
               };
           };
+      }
+    | null;
+
+// Source: src/sanity/queries/menu-page.ts
+// Variable: MENU_PAGE_QUERY
+// Query: *[_id == "menuPage"][0] {        _id,        "title": title[language == $locale][0].value,        "subtitle": subtitle[language == $locale][0].value,        "images": images[] {            _key,            "assetId": asset->_id,            "width": asset->metadata.dimensions.width,            "height": asset->metadata.dimensions.height,            "lqip": asset->metadata.lqip,            crop {                top,                right,                bottom,                left            },            hotspot {                x,                y,                width,                height            },            "alt": alt[language == $locale][0].value        },        "cta": cta {            "label": label[language == $locale][0].value,            url,            variant        },        "downloadLabel": downloadLabel[language == $locale][0].value,        "menuPdf": coalesce(            (                *[                    _type == "sanity.fileAsset" &&                    mimeType == "application/pdf" &&                    references(*[_type == "media.tag" && name.current == "current-menu-" + $locale][0]._id)                ] | order(_updatedAt desc)[0] {                    url,                    originalFilename                }            ),            (                *[                    _type == "sanity.fileAsset" &&                    mimeType == "application/pdf" &&                    references(*[_type == "media.tag" && name.current == "current-menu-fr"][0]._id)                ] | order(_updatedAt desc)[0] {                    url,                    originalFilename                }            )        )    }
+export type MENU_PAGE_QUERY_RESULT =
+    | {
+          _id: 'menuPage';
+          title: null;
+          subtitle: null;
+          images: null;
+          cta: null;
+          downloadLabel: null;
+          menuPdf: {
+              url: string;
+              originalFilename: string | null;
+          } | null;
+      }
+    | {
+          _id: 'menuPage';
+          title: string | null;
+          subtitle: string | null;
+          images: Array<{
+              _key: string;
+              assetId: string | null;
+              width: number | null;
+              height: number | null;
+              lqip: string | null;
+              crop: {
+                  top: number;
+                  right: number;
+                  bottom: number;
+                  left: number;
+              } | null;
+              hotspot: {
+                  x: number;
+                  y: number;
+                  width: number;
+                  height: number;
+              } | null;
+              alt: string | null;
+          }>;
+          cta: {
+              label: string | null;
+              url: '/#contact' | '/#gallery' | '/#hero' | '/#menu' | '/#order' | '/#story' | '/gallery' | '/menu';
+              variant: 'inverse' | 'primary' | 'secondary';
+          };
+          downloadLabel: string | null;
+          menuPdf: {
+              url: string;
+              originalFilename: string | null;
+          } | null;
+      }
+    | {
+          _id: 'menuPage';
+          title: string | null;
+          subtitle: string | null;
+          images: Array<{
+              _key: string;
+              assetId: string | null;
+              width: number | null;
+              height: number | null;
+              lqip: string | null;
+              crop: {
+                  top: number;
+                  right: number;
+                  bottom: number;
+                  left: number;
+              } | null;
+              hotspot: {
+                  x: number;
+                  y: number;
+                  width: number;
+                  height: number;
+              } | null;
+              alt: string | null;
+          }>;
+          cta: {
+              label: string | null;
+              url: '/#contact' | '/#gallery' | '/#hero' | '/#menu' | '/#order' | '/#story' | '/gallery' | '/menu' | null;
+              variant: 'inverse' | 'primary' | 'secondary' | null;
+          } | null;
+          downloadLabel: null;
+          menuPdf: {
+              url: string;
+              originalFilename: string | null;
+          } | null;
+      }
+    | null;
+
+// Source: src/sanity/queries/navigation-menu.ts
+// Variable: NAVIGATION_MENU_QUERY
+// Query: *[_id == "navigationMenu"][0] {        "links": links[] {            _key,            "label": label[language == $locale][0].value,            url        }    }
+export type NAVIGATION_MENU_QUERY_RESULT =
+    | {
+          links: Array<{
+              _key: string;
+              label: string | null;
+              url: '/#contact' | '/#gallery' | '/#hero' | '/#menu' | '/#order' | '/#story' | '/gallery' | '/menu';
+          }>;
+      }
+    | {
+          links: null;
       }
     | null;
