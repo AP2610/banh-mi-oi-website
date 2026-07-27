@@ -39,10 +39,13 @@ const toImageSource = (image: SanityImageData): SanityImageSource => ({
     ...(image.hotspot ? { hotspot: { _type: 'sanity.imageHotspot', ...image.hotspot } } : {}),
 });
 
-export const buildSanityImageUrl = (image: SanityImageData, width?: number): string => {
-    const imageBuilder = urlFor(toImageSource(image)).auto('format');
+export const buildSanityImageUrl = (image: SanityImageData, width?: number, quality?: number): string => {
+    let imageBuilder = urlFor(toImageSource(image)).auto('format');
 
-    return (width ? imageBuilder.width(width).fit('max') : imageBuilder).url();
+    if (width) imageBuilder = imageBuilder.width(width).fit('max');
+    if (quality) imageBuilder = imageBuilder.quality(quality);
+
+    return imageBuilder.url();
 };
 
 export const getCroppedImageDimensions = (image: SanityImageData): { width: number; height: number } => {

@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
         loader: 'custom',
         loaderFile: './src/sanity/lib/image-loader.ts',
         deviceSizes: [480, 768, 1024, 1440, 1920],
+        qualities: [75, 100],
     },
     turbopack: {
         root: path.join(__dirname, '..'),

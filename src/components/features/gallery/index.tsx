@@ -1,7 +1,7 @@
 import { Section } from '@/components/layout/section';
-import { Button } from '@/components/ui/button';
+import { Button, type ButtonVariant } from '@/components/ui/button';
 import { Heading } from '@/components/ui/heading';
-import { Link } from '@/i18n/navigation';
+import { getLocalizedHref, Link } from '@/i18n/navigation';
 import type { Locale } from '@/i18n/routing';
 import { buildSanityImageUrl, getCroppedImageDimensions, type SanityContentImage } from '@/sanity/lib/image';
 
@@ -10,7 +10,7 @@ import { GalleryAlbum, type GalleryPhoto } from './album';
 type GalleryCallToAction = {
     label: string;
     url: '/menu' | '/gallery' | '/#hero' | '/#story' | '/#menu' | '/#order' | '/#gallery' | '/#contact';
-    variant: 'primary' | 'secondary';
+    variant: ButtonVariant;
 };
 
 export type GalleryImage = SanityContentImage & {
@@ -31,6 +31,7 @@ type GalleryProps = {
 };
 
 const responsiveWidths = [480, 768, 1024, 1440, 1920, 2560];
+const GALLERY_IMAGE_QUALITY = 100;
 
 const toGalleryPhoto = (image: GalleryImage): GalleryPhoto => {
     const dimensions = getCroppedImageDimensions(image);
@@ -38,14 +39,15 @@ const toGalleryPhoto = (image: GalleryImage): GalleryPhoto => {
 
     return {
         key: image._key,
-        src: buildSanityImageUrl(image),
+        src: buildSanityImageUrl(image, undefined, GALLERY_IMAGE_QUALITY),
         width: dimensions.width,
         height: dimensions.height,
         alt: image.alt,
         label: image.alt,
         blurDataURL: image.lqip ?? undefined,
+        quality: GALLERY_IMAGE_QUALITY,
         srcSet: widths.map((width) => ({
-            src: buildSanityImageUrl(image, width),
+            src: buildSanityImageUrl(image, width, GALLERY_IMAGE_QUALITY),
             width,
             height: Math.round((width / dimensions.width) * dimensions.height),
         })),
@@ -66,7 +68,7 @@ export const Gallery = ({ gallery, locale }: GalleryProps) => {
                         <p className="mt-5 max-w-2xl text-lg leading-relaxed">{gallery.subtitle}</p>
 
                         {gallery.cta ? (
-                            <Button as={Link} href={gallery.cta.url} variant={gallery.cta.variant} className="mt-8">
+                            <Button as={Link} href={getLocalizedHref(gallery.cta.url)} variant={gallery.cta.variant} className="mt-8">
                                 {gallery.cta.label}
                             </Button>
                         ) : null}

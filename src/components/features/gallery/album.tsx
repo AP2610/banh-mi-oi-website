@@ -11,6 +11,7 @@ import type { Locale } from '@/i18n/routing';
 
 export type GalleryPhoto = Photo & {
     blurDataURL?: string;
+    quality?: number;
 };
 
 type GalleryAlbumProps = {
@@ -49,6 +50,7 @@ const renderNextImage = ({ alt = '', title, sizes }: RenderImageProps, { photo, 
             alt={alt}
             title={title}
             sizes={sizes}
+            quality={photo.quality}
             placeholder={photo.blurDataURL ? 'blur' : 'empty'}
             blurDataURL={photo.blurDataURL}
             className="object-cover transition duration-300 group-hover:scale-[1.03] group-hover:brightness-90"
@@ -71,10 +73,11 @@ export const GalleryAlbum = ({ locale, photos }: GalleryAlbumProps) => {
                 spacing={(containerWidth) => (containerWidth < 640 ? 8 : 16)}
                 breakpoints={[320, 640, 1024, 1440]}
                 sizes={{
-                    size: '25vw',
+                    size: '1456px',
                     sizes: [
-                        { viewport: '(max-width: 639px)', size: 'calc(50vw - 24px)' },
-                        { viewport: '(max-width: 1023px)', size: 'calc(33vw - 32px)' },
+                        { viewport: '(max-width: 639px)', size: 'calc(100vw - 40px)' },
+                        { viewport: '(max-width: 1023px)', size: 'calc(100vw - 64px)' },
+                        { viewport: '(max-width: 1535px)', size: 'calc(100vw - 80px)' },
                     ],
                 }}
                 render={{ image: renderNextImage }}
