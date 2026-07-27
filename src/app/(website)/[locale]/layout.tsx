@@ -7,6 +7,8 @@ import { notFound } from 'next/navigation';
 import { SiteHeader } from '@/components/layout/site-header';
 import { SiteFooter } from '@/components/layout/site-footer';
 import { routing } from '@/i18n/routing';
+import { sanityFetch } from '@/sanity/lib/fetch';
+import { NAVIGATION_MENU_QUERY, type NavigationMenuData } from '@/sanity/queries/navigation-menu';
 
 import '../../../styles/globals.css';
 
@@ -55,6 +57,11 @@ const WebsiteLayout = async ({ children, params }: WebsiteLayoutProps) => {
 
     setRequestLocale(locale);
 
+    const navigationMenu = await sanityFetch<NavigationMenuData | null, { locale: string }>({
+        query: NAVIGATION_MENU_QUERY,
+        params: { locale },
+    });
+
     return (
         <html lang={locale}>
             <head>
@@ -69,7 +76,7 @@ const WebsiteLayout = async ({ children, params }: WebsiteLayoutProps) => {
             <body className={`${bebasNeue.variable} ${quicksand.variable}`}>
                 <NextIntlClientProvider locale={locale} messages={{}}>
                     <div className="website-root flex min-h-svh flex-col bg-background font-body text-foreground antialiased">
-                        <SiteHeader />
+                        <SiteHeader links={navigationMenu?.links ?? []} />
 
                         <main className="flex-1 pt-header">{children}</main>
 

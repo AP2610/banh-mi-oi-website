@@ -3,14 +3,19 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
+import { NavigationMenu } from '@/components/layout/navigation-menu';
+import { LanguageSwitcher } from '@/components/ui/language-switcher';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils/cn';
-import { LanguageSwitcher } from '@/components/ui/language-switcher';
+import type { NavigationLink } from '@/sanity/queries/navigation-menu';
 
 const HEADER_BACKGROUND_SCROLL_THRESHOLD = 96;
 
-// TODO: Implement correct site header and connect to sanity Navigation schema
-export const SiteHeader = () => {
+type SiteHeaderProps = {
+    links: NavigationLink[];
+};
+
+export const SiteHeader = ({ links }: SiteHeaderProps) => {
     const [showBackground, setShowBackground] = useState(false);
 
     useEffect(() => {
@@ -32,25 +37,18 @@ export const SiteHeader = () => {
                 )}
             />
 
-            <div className="container mx-auto flex items-center justify-between px-5 py-5 sm:px-8 lg:px-10">
+            <div className="relative z-10 mx-auto flex items-center justify-between px-5 py-5 sm:px-8 lg:px-10">
                 {/* TODO: Translate this label based on the active locale. */}
-                <Link href="/" className="inline-flex items-center" aria-label="Bánh Mì Oi !, accueil">
+                <Link href="/" className="relative z-10 inline-flex items-center" aria-label="Bánh Mì Oi !, accueil">
                     <Image src="/logos/logo-small.svg" width={820} height={448} unoptimized alt="" className="h-14 w-auto sm:h-16" />
                 </Link>
 
-                <div className="flex items-center gap-3">
-                    {/* TODO: Translate this label and link text based on the active locale. */}
-                    <nav aria-label="Navigation principale" className="hidden sm:block">
-                        <a
-                            href="#hero"
-                            aria-current="page"
-                            className="inline-flex min-h-11 items-center rounded-full border border-white/70 px-5 font-medium transition-colors hover:bg-white hover:text-sodalite-blue"
-                        >
-                            Accueil
-                        </a>
-                    </nav>
+                <div className="flex items-center gap-8">
+                    <div className="relative z-10">
+                        <LanguageSwitcher />
+                    </div>
 
-                    <LanguageSwitcher />
+                    <NavigationMenu links={links} />
                 </div>
             </div>
         </header>
