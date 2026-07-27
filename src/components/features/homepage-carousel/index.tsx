@@ -1,15 +1,14 @@
 import { Section } from '@/components/layout/section';
-import { Button } from '@/components/ui/button';
+import { Button, type ButtonVariant } from '@/components/ui/button';
 import { Heading } from '@/components/ui/heading';
 import { Link } from '@/i18n/navigation';
-import { cn } from '@/lib/utils/cn';
 
 import { Carousel, type CarouselImage } from './carousel';
 
 type CarouselCallToAction = {
     label: string;
     url: '/gallery';
-    variant: 'primary' | 'secondary';
+    variant: ButtonVariant;
 };
 
 export type HomePageCarousel = {
@@ -35,15 +34,7 @@ export const HomePageCarouselSection = ({ carousel }: HomePageCarouselSectionPro
                     {carousel.subtitle ? <p className="mt-5 max-w-prose text-lg leading-relaxed">{carousel.subtitle}</p> : null}
 
                     {carousel.cta ? (
-                        <Button
-                            as={Link}
-                            href={carousel.cta.url}
-                            variant={carousel.cta.variant}
-                            className={cn(
-                                'mt-8',
-                                carousel.cta.variant === 'secondary' && 'border-secondary text-secondary hover:bg-secondary hover:text-antique-white',
-                            )}
-                        >
+                        <Button as={Link} href={carousel.cta.url} variant={carousel.cta.variant} className="mt-8">
                             {carousel.cta.label}
                         </Button>
                     ) : null}
