@@ -5,6 +5,15 @@ export const routing = defineRouting({
     defaultLocale: 'fr',
     localePrefix: 'as-needed',
     localeDetection: false,
+    pathnames: {
+        '/': '/',
+        '/gallery': {
+            fr: '/galerie',
+            en: '/gallery',
+        },
+        '/menu': '/menu',
+    },
 });
 
 export type Locale = (typeof routing.locales)[number];
+export type AppPathname = keyof (typeof routing)['pathnames'];

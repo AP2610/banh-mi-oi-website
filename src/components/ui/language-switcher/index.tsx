@@ -4,7 +4,7 @@ import { type ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useLocale } from 'next-intl';
 
 import { usePathname, useRouter } from '@/i18n/navigation';
-import type { Locale } from '@/i18n/routing';
+import type { AppPathname, Locale } from '@/i18n/routing';
 
 import styles from './language-switcher.module.css';
 
@@ -12,7 +12,7 @@ const SWITCH_DURATION = 300;
 
 type LocaleSwitchProps = {
     locale: Locale;
-    pathname: string;
+    pathname: AppPathname;
 };
 
 const LocaleSwitch = ({ locale, pathname }: LocaleSwitchProps) => {

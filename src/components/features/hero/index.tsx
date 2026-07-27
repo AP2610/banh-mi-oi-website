@@ -1,11 +1,11 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import type { CSSProperties } from 'react';
 import type { HOME_PAGE_QUERY_RESULT } from '@/sanity/sanity.types';
 import { buildSanityImageUrl, getCroppedImageDimensions, getSanityImageObjectPosition } from '@/sanity/lib/image';
 import { Section } from '@/components/layout/section';
 import { Button } from '@/components/ui/button';
 import { Heading } from '@/components/ui/heading';
+import { getLocalizedHref, Link } from '@/i18n/navigation';
 
 type QueryHero = Extract<NonNullable<HOME_PAGE_QUERY_RESULT>, { image: object }>;
 type QueryImage = NonNullable<QueryHero['image']>;
@@ -82,12 +82,22 @@ export const Hero = ({ hero }: HeroProps) => {
                         {hero.primaryCta || hero.secondaryCta ? (
                             <div className="mt-8 flex w-full flex-col gap-3 md:w-[65%] md:flex-row md:justify-start lg:w-[50%]">
                                 {hero.primaryCta ? (
-                                    <Button as={Link} href={hero.primaryCta.url} variant={hero.primaryCta.variant} className="flex-1 px-4">
+                                    <Button
+                                        as={Link}
+                                        href={getLocalizedHref(hero.primaryCta.url)}
+                                        variant={hero.primaryCta.variant}
+                                        className="flex-1 px-4"
+                                    >
                                         {hero.primaryCta.label}
                                     </Button>
                                 ) : null}
                                 {hero.secondaryCta ? (
-                                    <Button as={Link} href={hero.secondaryCta.url} variant={hero.secondaryCta.variant} className="flex-1 px-4">
+                                    <Button
+                                        as={Link}
+                                        href={getLocalizedHref(hero.secondaryCta.url)}
+                                        variant={hero.secondaryCta.variant}
+                                        className="flex-1 px-4"
+                                    >
                                         {hero.secondaryCta.label}
                                     </Button>
                                 ) : null}
