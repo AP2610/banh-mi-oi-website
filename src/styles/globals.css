@@ -5,12 +5,14 @@
 
     /* Colors */
     --color-orangeade: #e55d3b;
+    --color-orangeade-dark: #b84329;
     --color-sodalite-blue: #384478;
     --color-antique-white: #eee7d3;
     --color-omphalodes: #b3cbd9;
     --color-black: rgba(20, 20, 20, 1);
     --color-white: rgba(250, 250, 250, 1);
     --color-light-gray: rgba(201, 206, 214, 1);
+    --color-error: #b42318;
 
     /* Spacing */
     --spacing-header: 6rem;
@@ -19,6 +21,7 @@
 @theme inline {
     /* Colors */
     --color-primary: var(--color-orangeade);
+    --color-primary-dark: var(--color-orangeade-dark);
     --color-secondary: var(--color-sodalite-blue);
     --color-tertiary: var(--color-omphalodes);
 

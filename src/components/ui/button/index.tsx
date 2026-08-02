@@ -18,7 +18,7 @@ export const Button = <T extends ElementType = 'button'>({ as, variant = 'primar
             className={cn(
                 'inline-flex min-h-11 items-center justify-center rounded-sm border px-6 py-2 font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white',
                 {
-                    'border-orangeade bg-orangeade text-white hover:border-transparent hover:bg-orangeade/50': variant === 'primary',
+                    'border-orangeade bg-orangeade text-white hover:border-primary-dark hover:bg-primary-dark': variant === 'primary',
                     'border-sodalite-blue bg-transparent text-sodalite-blue hover:bg-sodalite-blue hover:text-white': variant === 'secondary',
                     'border-white bg-transparent text-white hover:bg-white hover:text-sodalite-blue': variant === 'inverse',
                 },
