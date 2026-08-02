@@ -4,12 +4,13 @@ import { Heading } from '@/components/ui/heading';
 import { getLocalizedHref, Link } from '@/i18n/navigation';
 import type { Locale } from '@/i18n/routing';
 import { buildSanityImageUrl, getCroppedImageDimensions, type SanityContentImage } from '@/sanity/lib/image';
+import type { Destination } from '@/sanity/lib/types';
 
 import { GalleryAlbum, type GalleryPhoto } from './album';
 
 type GalleryCallToAction = {
     label: string;
-    url: '/menu' | '/gallery' | '/#hero' | '/#story' | '/#menu' | '/#order' | '/#gallery' | '/#contact';
+    url: Destination;
     variant: ButtonVariant;
 };
 

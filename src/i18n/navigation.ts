@@ -7,7 +7,7 @@ export const { Link, redirect, usePathname, useRouter, getPathname } = createNav
 type AppDestination = keyof (typeof routing)['pathnames'] | `/#${string}`;
 
 export const getLocalizedHref = (destination: AppDestination) => {
-    if (destination === '/' || destination === '/gallery' || destination === '/menu') {
+    if (destination === '/' || destination === '/gallery' || destination === '/menu' || destination === '/contact') {
         return destination;
     }
 

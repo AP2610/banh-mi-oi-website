@@ -1,12 +1,21 @@
 import Image from 'next/image';
 
+import { Button, type ButtonVariant } from '@/components/ui/button';
 import { Heading } from '@/components/ui/heading';
+import { getLocalizedHref, Link } from '@/i18n/navigation';
 import { buildSanityImageUrl, getSanityImageObjectPosition, type SanityContentImage } from '@/sanity/lib/image';
+import type { Destination } from '@/sanity/lib/types';
 import { Section } from '@/components/layout/section';
 
 export type HomePageStory = {
     title: string;
     text: string;
+    contactText: string | null;
+    contactCta: {
+        label: string;
+        url: Destination;
+        variant: ButtonVariant;
+    } | null;
     image: SanityContentImage;
 };
 
@@ -24,6 +33,14 @@ export const OurStory = ({ story }: OurStoryProps) => (
                     </Heading>
 
                     <p className="mt-6 max-w-prose text-lg leading-relaxed whitespace-pre-line">{story.text}</p>
+
+                    {story.contactText ? <p className="mt-8 max-w-prose text-lg leading-relaxed whitespace-pre-line">{story.contactText}</p> : null}
+
+                    {story.contactCta ? (
+                        <Button as={Link} href={getLocalizedHref(story.contactCta.url)} variant={story.contactCta.variant} className="mt-6">
+                            {story.contactCta.label}
+                        </Button>
+                    ) : null}
                 </div>
 
                 <div className="relative aspect-4/5 min-h-0 overflow-hidden lg:order-1">

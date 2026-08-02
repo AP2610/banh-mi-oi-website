@@ -4,18 +4,22 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 import { NavigationMenu } from '@/components/layout/navigation-menu';
+import { InstagramLink } from '@/components/ui/instagram-link';
 import { LanguageSwitcher } from '@/components/ui/language-switcher';
 import { Link } from '@/i18n/navigation';
+import type { Locale } from '@/i18n/routing';
 import { cn } from '@/lib/utils/cn';
 import type { NavigationLink } from '@/sanity/queries/navigation-menu';
 
 const HEADER_BACKGROUND_SCROLL_THRESHOLD = 96;
 
 type SiteHeaderProps = {
+    instagramUrl?: string;
     links: NavigationLink[];
+    locale: Locale;
 };
 
-export const SiteHeader = ({ links }: SiteHeaderProps) => {
+export const SiteHeader = ({ instagramUrl, links, locale }: SiteHeaderProps) => {
     const [showBackground, setShowBackground] = useState(false);
 
     useEffect(() => {
@@ -44,7 +48,15 @@ export const SiteHeader = ({ links }: SiteHeaderProps) => {
                 </Link>
 
                 <div className="flex items-center gap-8">
-                    <div className="relative z-10">
+                    <div className="relative z-10 flex items-center gap-8">
+                        {instagramUrl ? (
+                            <InstagramLink
+                                href={instagramUrl}
+                                label={locale === 'fr' ? 'Suivez Bánh Mì Oi ! sur Instagram' : 'Follow Bánh Mì Oi! on Instagram'}
+                                className="bg-primary hover:bg-orangeade-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                            />
+                        ) : null}
+
                         <LanguageSwitcher />
                     </div>
 

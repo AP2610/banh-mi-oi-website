@@ -18,6 +18,7 @@ type HomePageCallToAction = QueryCallToAction & {
 export type HomePageHero = Pick<QueryHero, '_id'> & {
     title: string;
     subtitle: string;
+    openingTimes: string | null;
     primaryCta: HomePageCallToAction | null;
     secondaryCta: HomePageCallToAction | null;
     image: QueryImage & {
@@ -78,6 +79,10 @@ export const Hero = ({ hero }: HeroProps) => {
                         <p className="mt-6 text-base font-semibold text-pretty transition-[font-size] duration-500 md:font-normal lg:text-xl">
                             {hero.subtitle}
                         </p>
+
+                        {hero.openingTimes ? (
+                            <p className="mt-3 text-sm font-semibold whitespace-pre-line lg:text-base">{hero.openingTimes}</p>
+                        ) : null}
 
                         {hero.primaryCta || hero.secondaryCta ? (
                             <div className="mt-8 flex w-full flex-col gap-3 md:w-[65%] md:flex-row md:justify-start lg:w-[50%]">

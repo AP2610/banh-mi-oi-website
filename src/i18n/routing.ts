@@ -12,6 +12,7 @@ export const routing = defineRouting({
             en: '/gallery',
         },
         '/menu': '/menu',
+        '/contact': '/contact',
     },
 });
 
