@@ -1,6 +1,6 @@
 import type { StructureResolver } from 'sanity/structure';
 
-const excludedPageTypes = new Set(['galleryPage', 'homePage', 'menuPage', 'navigationMenu', 'media.tag']);
+const excludedPageTypes = new Set(['contactPage', 'galleryPage', 'homePage', 'menuPage', 'navigationMenu', 'siteSettings', 'media.tag']);
 
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
 export const structure: StructureResolver = (S) =>
@@ -29,6 +29,11 @@ export const structure: StructureResolver = (S) =>
                                 .title('Menu Page')
                                 .schemaType('menuPage')
                                 .child(S.document().schemaType('menuPage').documentId('menuPage').title('Menu Page')),
+                            S.listItem()
+                                .id('contactPage')
+                                .title('Contact Page')
+                                .schemaType('contactPage')
+                                .child(S.document().schemaType('contactPage').documentId('contactPage').title('Contact Page')),
                             ...S.documentTypeListItems().filter((listItem) => !excludedPageTypes.has(listItem.getId() ?? '')),
                         ]),
                 ),
@@ -37,4 +42,9 @@ export const structure: StructureResolver = (S) =>
                 .title('Navigation Menu')
                 .schemaType('navigationMenu')
                 .child(S.document().schemaType('navigationMenu').documentId('navigationMenu').title('Navigation Menu')),
+            S.listItem()
+                .id('siteSettings')
+                .title('Site Settings')
+                .schemaType('siteSettings')
+                .child(S.document().schemaType('siteSettings').documentId('siteSettings').title('Site Settings')),
         ]);

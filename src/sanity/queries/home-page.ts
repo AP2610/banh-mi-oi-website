@@ -5,6 +5,7 @@ export const HOME_PAGE_QUERY = defineQuery(/* groq */ `
         _id,
         "title": hero.heroTitle[language == $locale][0].value,
         "subtitle": hero.heroSubtitle[language == $locale][0].value,
+        "openingTimes": *[_id == "siteSettings"][0].openingTimes[language == $locale][0].value,
         "primaryCta": hero.primaryCta {
             "label": label[language == $locale][0].value,
             url,
@@ -75,6 +76,12 @@ export const HOME_PAGE_QUERY = defineQuery(/* groq */ `
         "story": story {
             "title": title[language == $locale][0].value,
             "text": text[language == $locale][0].value,
+            "contactText": contactText[language == $locale][0].value,
+            "contactCta": contactCta {
+                "label": label[language == $locale][0].value,
+                url,
+                variant
+            },
             "image": image {
                 "assetId": asset->_id,
                 "width": asset->metadata.dimensions.width,

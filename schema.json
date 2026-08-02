@@ -1,5 +1,123 @@
 [
   {
+    "name": "siteSettings",
+    "type": "document",
+    "attributes": {
+      "_id": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_type": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string",
+          "value": "siteSettings"
+        }
+      },
+      "_createdAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_updatedAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_rev": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "address": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "object",
+          "attributes": {
+            "houseNumber": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
+            "street": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
+            "city": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
+            "postalCode": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            }
+          }
+        },
+        "optional": true
+      },
+      "openingTimes": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "internationalizedArrayText"
+        },
+        "optional": false
+      },
+      "instagramUrl": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": false
+      },
+      "contactRecipientEmail": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": false
+      }
+    }
+  },
+  {
+    "name": "internationalizedArrayText",
+    "type": "type",
+    "value": {
+      "type": "array",
+      "of": {
+        "type": "object",
+        "attributes": {
+          "_key": {
+            "type": "objectAttribute",
+            "value": {
+              "type": "string"
+            }
+          }
+        },
+        "rest": {
+          "type": "inline",
+          "name": "internationalizedArrayTextValue"
+        }
+      }
+    }
+  },
+  {
     "name": "navigationMenu",
     "type": "document",
     "attributes": {
@@ -64,6 +182,10 @@
                     },
                     {
                       "type": "string",
+                      "value": "/contact"
+                    },
+                    {
+                      "type": "string",
                       "value": "/#hero"
                     },
                     {
@@ -81,10 +203,6 @@
                     {
                       "type": "string",
                       "value": "/#gallery"
-                    },
-                    {
-                      "type": "string",
-                      "value": "/#contact"
                     }
                   ]
                 },
@@ -341,6 +459,10 @@
               },
               {
                 "type": "string",
+                "value": "/contact"
+              },
+              {
+                "type": "string",
                 "value": "/#hero"
               },
               {
@@ -358,10 +480,6 @@
               {
                 "type": "string",
                 "value": "/#gallery"
-              },
-              {
-                "type": "string",
-                "value": "/#contact"
               }
             ]
           },
@@ -475,28 +593,6 @@
             "type": "number"
           },
           "optional": false
-        }
-      }
-    }
-  },
-  {
-    "name": "internationalizedArrayText",
-    "type": "type",
-    "value": {
-      "type": "array",
-      "of": {
-        "type": "object",
-        "attributes": {
-          "_key": {
-            "type": "objectAttribute",
-            "value": {
-              "type": "string"
-            }
-          }
-        },
-        "rest": {
-          "type": "inline",
-          "name": "internationalizedArrayTextValue"
         }
       }
     }
@@ -724,6 +820,22 @@
                 "name": "accessibleImage"
               },
               "optional": false
+            },
+            "contactText": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "internationalizedArrayText"
+              },
+              "optional": true
+            },
+            "contactCta": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "optionalCallToAction"
+              },
+              "optional": true
             }
           }
         },
@@ -869,6 +981,10 @@
               },
               {
                 "type": "string",
+                "value": "/contact"
+              },
+              {
+                "type": "string",
                 "value": "/#hero"
               },
               {
@@ -886,10 +1002,6 @@
               {
                 "type": "string",
                 "value": "/#gallery"
-              },
-              {
-                "type": "string",
-                "value": "/#contact"
               }
             ]
           },
@@ -1044,6 +1156,75 @@
               }
             }
           }
+        },
+        "optional": false
+      }
+    }
+  },
+  {
+    "name": "contactPage",
+    "type": "document",
+    "attributes": {
+      "_id": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_type": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string",
+          "value": "contactPage"
+        }
+      },
+      "_createdAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_updatedAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_rev": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "internationalizedArrayString"
+        },
+        "optional": false
+      },
+      "subtitle": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "internationalizedArrayText"
+        },
+        "optional": true
+      },
+      "submitLabel": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "internationalizedArrayString"
+        },
+        "optional": false
+      },
+      "image": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "accessibleImage"
         },
         "optional": false
       }

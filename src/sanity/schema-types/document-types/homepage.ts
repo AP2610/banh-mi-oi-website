@@ -180,6 +180,17 @@ export const homePage = defineType({
                 collapsed: true,
             },
             validation: (rule) => rule.required(),
+            fieldsets: [
+                {
+                    name: 'contactUs',
+                    title: 'Contact us',
+                    description: 'Optional contact text and button displayed beneath the Our Story copy.',
+                    options: {
+                        collapsible: true,
+                        collapsed: true,
+                    },
+                },
+            ],
             fields: [
                 defineField({
                     name: 'title',
@@ -201,6 +212,21 @@ export const homePage = defineType({
                     type: 'accessibleImage',
                     description: 'Choose the image displayed beside the story and provide alternative text in French and English.',
                     validation: (rule) => rule.required(),
+                }),
+                defineField({
+                    name: 'contactText',
+                    title: 'Contact text',
+                    type: 'internationalizedArrayText',
+                    description: 'Optional text inviting visitors to contact the restaurant.',
+                    fieldset: 'contactUs',
+                }),
+                defineField({
+                    name: 'contactCta',
+                    title: 'Contact call to action',
+                    type: 'optionalCallToAction',
+                    description: 'Optional button displayed with the contact text.',
+                    fieldset: 'contactUs',
+                    validation: (rule) => optionalCallToAction(rule),
                 }),
             ],
         }),
