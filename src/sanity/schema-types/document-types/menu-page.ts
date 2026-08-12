@@ -2,6 +2,7 @@ import { HiOutlineClipboardDocumentList } from 'react-icons/hi2';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
 import { accessibleImageFields } from '../custom-types/accessible-image';
+import { seoField } from '../custom-types/seo';
 import { requiredFrenchAndEnglishTranslations } from '../validations/validation';
 
 export const menuPage = defineType({
@@ -59,6 +60,7 @@ export const menuPage = defineType({
                 'Required text for the menu PDF download link. The PDF is selected automatically using the current-menu-{locale} Media Library tag, with current-menu-fr as the fallback.',
             validation: requiredFrenchAndEnglishTranslations,
         }),
+        seoField,
     ],
     preview: {
         prepare: () => ({ title: 'Menu Page' }),

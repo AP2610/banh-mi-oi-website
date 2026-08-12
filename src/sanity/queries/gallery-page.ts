@@ -1,8 +1,12 @@
 import { defineQuery } from 'next-sanity';
 
+import { SEO_PROJECTION } from './fragments/seo';
+
 export const GALLERY_PAGE_QUERY = defineQuery(/* groq */ `
     *[_id == "galleryPage"][0] {
         _id,
+        _updatedAt,
+        ${SEO_PROJECTION},
         "title": title[language == $locale][0].value,
         "subtitle": subtitle[language == $locale][0].value,
         "cta": cta {

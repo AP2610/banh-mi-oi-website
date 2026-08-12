@@ -2,6 +2,7 @@ import { HiOutlineEnvelope } from 'react-icons/hi2';
 import { defineField, defineType } from 'sanity';
 
 import { requiredFrenchAndEnglishTranslations } from '../validations/validation';
+import { seoField } from '../custom-types/seo';
 
 export const contactPage = defineType({
     name: 'contactPage',
@@ -36,6 +37,7 @@ export const contactPage = defineType({
             description: 'The required image displayed behind the contact details in the left column.',
             validation: (rule) => rule.required(),
         }),
+        seoField,
     ],
     preview: {
         prepare: () => ({ title: 'Contact Page' }),

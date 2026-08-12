@@ -1,5 +1,5 @@
 import { HiOutlineCog6Tooth } from 'react-icons/hi2';
-import { defineField, defineType } from 'sanity';
+import { defineArrayMember, defineField, defineType } from 'sanity';
 
 import { requiredFrenchAndEnglishTranslations } from '../validations/validation';
 
@@ -47,6 +47,38 @@ export const siteSettings = defineType({
             type: 'internationalizedArrayText',
             description: 'Displayed in the homepage hero and on the Contact page.',
             validation: requiredFrenchAndEnglishTranslations,
+        }),
+        defineField({
+            name: 'structuredOpeningHours',
+            title: 'Opening hours for search engines',
+            type: 'array',
+            description:
+                'Optional machine-readable opening hours used by search engines. Add one entry per schedule, for example “Mo-Fr 11:30-21:30” or “Sa-Su 12:00-22:00”.',
+            of: [defineArrayMember({ type: 'string' })],
+            validation: (rule) =>
+                rule.unique().custom((values) => {
+                    if (!values) return true;
+
+                    return values.every(
+                        (value) =>
+                            typeof value === 'string' && /^(Mo|Tu|We|Th|Fr|Sa|Su)(-(Mo|Tu|We|Th|Fr|Sa|Su))? \d{2}:\d{2}-\d{2}:\d{2}$/.test(value),
+                    )
+                        ? true
+                        : 'Use the format “Mo-Fr 11:30-21:30”.';
+                }),
+        }),
+        defineField({
+            name: 'telephone',
+            title: 'Telephone number',
+            type: 'string',
+            description:
+                'Optional public telephone number used in restaurant search information. Include the country code, for example +33 1 23 45 67 89.',
+        }),
+        defineField({
+            name: 'priceRange',
+            title: 'Price range',
+            type: 'string',
+            description: 'Optional price indicator used in restaurant search information, for example € or €€.',
         }),
         defineField({
             name: 'instagramUrl',

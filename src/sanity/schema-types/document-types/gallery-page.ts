@@ -2,6 +2,7 @@ import { HiOutlinePhoto } from 'react-icons/hi2';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
 import { accessibleImageFields } from '../custom-types/accessible-image';
+import { seoField } from '../custom-types/seo';
 import { optionalCallToAction, requiredFrenchAndEnglishTranslations } from '../validations/validation';
 
 export const galleryPage = defineType({
@@ -52,6 +53,7 @@ export const galleryPage = defineType({
             },
             validation: (rule) => rule.required().min(1).error('Add at least one image to the Gallery page.'),
         }),
+        seoField,
     ],
     preview: {
         prepare: () => ({ title: 'Gallery Page' }),

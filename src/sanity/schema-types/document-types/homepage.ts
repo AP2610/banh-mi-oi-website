@@ -2,6 +2,7 @@ import { HiOutlineHome } from 'react-icons/hi2';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
 import { optionalCallToAction, requiredFrenchAndEnglishTranslations } from '../validations/validation';
+import { seoField } from '../custom-types/seo';
 
 const defaultUberEatsUrl =
     'https://www.ubereats.com/fr-en/store/banh-mi-oi-!/FKNrXgOGSUawAmfw8WORTA?diningMode=DELIVERY&pl=JTdCJTIyYWRkcmVzcyUyMiUzQSUyMk1vbnRlbGJhYW5zdHJhYXQlMjAyNCUyMiUyQyUyMnJlZmVyZW5jZSUyMiUzQSUyMkNoSUpTWGtfN0xzSnhrY1JTdE0zbWhwYzVOcyUyMiUyQyUyMnJlZmVyZW5jZVR5cGUlMjIlM0ElMjJnb29nbGVfcGxhY2VzJTIyJTJDJTIybGF0aXR1ZGUlMjIlM0E1Mi4zNzI1NzEwOTk5OTk5OTUlMkMlMjJsb25naXR1ZGUlMjIlM0E0LjkwMzU2NzklN0Q%3D';
@@ -289,6 +290,7 @@ export const homePage = defineType({
                 }),
             ],
         }),
+        seoField,
     ],
     preview: {
         prepare: () => ({ title: 'Homepage' }),

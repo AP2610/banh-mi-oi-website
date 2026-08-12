@@ -1,8 +1,12 @@
 import { defineQuery } from 'next-sanity';
 
+import { SEO_PROJECTION } from './fragments/seo';
+
 export const CONTACT_PAGE_QUERY = defineQuery(/* groq */ `
     *[_id == "contactPage"][0] {
         _id,
+        _updatedAt,
+        ${SEO_PROJECTION},
         "title": title[language == $locale][0].value,
         "subtitle": subtitle[language == $locale][0].value,
         "submitLabel": submitLabel[language == $locale][0].value,

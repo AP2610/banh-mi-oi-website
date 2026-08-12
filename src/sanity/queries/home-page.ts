@@ -1,8 +1,12 @@
 import { defineQuery } from 'next-sanity';
 
+import { SEO_PROJECTION } from './fragments/seo';
+
 export const HOME_PAGE_QUERY = defineQuery(/* groq */ `
     *[_id == "homePage"][0] {
         _id,
+        _updatedAt,
+        ${SEO_PROJECTION},
         "title": hero.heroTitle[language == $locale][0].value,
         "subtitle": hero.heroSubtitle[language == $locale][0].value,
         "openingTimes": *[_id == "siteSettings"][0].openingTimes[language == $locale][0].value,

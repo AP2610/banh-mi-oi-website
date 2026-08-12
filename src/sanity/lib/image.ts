@@ -48,6 +48,9 @@ export const buildSanityImageUrl = (image: SanityImageData, width?: number, qual
     return imageBuilder.url();
 };
 
+export const buildSanitySocialImageUrl = (image: SanityImageData): string =>
+    urlFor(toImageSource(image)).width(1200).height(630).fit('crop').auto('format').quality(90).url();
+
 export const getCroppedImageDimensions = (image: SanityImageData): { width: number; height: number } => {
     const crop = image.crop ?? { top: 0, right: 0, bottom: 0, left: 0 };
 

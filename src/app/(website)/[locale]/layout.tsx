@@ -6,7 +6,9 @@ import { notFound } from 'next/navigation';
 
 import { SiteHeader } from '@/components/layout/site-header';
 import { SiteFooter } from '@/components/layout/site-footer';
+import { RestaurantStructuredData } from '@/components/seo/restaurant-structured-data';
 import { routing } from '@/i18n/routing';
+import { SITE_NAME, SITE_URL } from '@/lib/site';
 import { sanityFetch } from '@/sanity/lib/fetch';
 import { NAVIGATION_MENU_QUERY, type NavigationMenuData } from '@/sanity/queries/navigation-menu';
 import { SITE_SETTINGS_QUERY, type PublicSiteSettings } from '@/sanity/queries/site-settings';
@@ -42,10 +44,30 @@ export const generateMetadata = async ({ params }: WebsiteLayoutProps): Promise<
         notFound();
     }
 
-    // TODO: Translate this metadata based on `locale` when localized SEO content is added to Sanity.
+    const title = locale === 'fr' ? 'Bánh Mì Oi! | Street food vietnamienne à Paris' : 'Bánh Mì Oi! | Vietnamese street food in Paris';
+    const description = locale === 'fr' ? 'Des bánh mì frais préparés avec passion à Paris.' : 'Fresh bánh mì prepared with passion in Paris.';
+
     return {
-        title: 'Bánh Mì Oi! | Street food vietnamienne à Paris',
-        description: 'Des Bánh Mì frais préparés avec passion à Paris.',
+        metadataBase: SITE_URL,
+        title,
+        description,
+        applicationName: SITE_NAME,
+        robots: {
+            index: true,
+            follow: true,
+            googleBot: {
+                index: true,
+                follow: true,
+                'max-image-preview': 'large',
+                'max-snippet': -1,
+                'max-video-preview': -1,
+            },
+        },
+        verification: process.env.GOOGLE_SITE_VERIFICATION
+            ? {
+                  google: process.env.GOOGLE_SITE_VERIFICATION,
+              }
+            : undefined,
     };
 };
 
@@ -89,6 +111,8 @@ const WebsiteLayout = async ({ children, params }: WebsiteLayoutProps) => {
 
                         <SiteFooter instagramUrl={siteSettings?.instagramUrl} locale={locale} />
                     </div>
+
+                    {siteSettings ? <RestaurantStructuredData locale={locale} settings={siteSettings} /> : null}
                 </NextIntlClientProvider>
             </body>
         </html>
