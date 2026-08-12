@@ -131,4 +131,4 @@ After deployment, use:
 - Google Search Console URL inspection
 - PageSpeed Insights
 
-Search Console and Google Business Profile are external operational systems. Their setup and ownership are documented in [Google setup](./google-setup.md).
+Search Console and Google Business Profile are external operational systems. Their setup and ownership are documented in [Google setup](../owners/google.md).
