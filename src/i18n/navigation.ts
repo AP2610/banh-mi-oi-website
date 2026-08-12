@@ -1,4 +1,5 @@
 import { createNavigation } from 'next-intl/navigation';
+import { stegaClean } from 'next-sanity';
 
 import { routing } from './routing';
 
@@ -7,12 +8,15 @@ export const { Link, redirect, usePathname, useRouter, getPathname } = createNav
 type AppDestination = keyof (typeof routing)['pathnames'] | `/#${string}`;
 
 export const getLocalizedHref = (destination: AppDestination) => {
-    if (destination === '/' || destination === '/gallery' || destination === '/menu' || destination === '/contact') {
-        return destination;
+    // Remove Presentation's invisible editing markers before routing logic.
+    const cleanDestination = stegaClean(destination);
+
+    if (cleanDestination === '/' || cleanDestination === '/gallery' || cleanDestination === '/menu' || cleanDestination === '/contact') {
+        return cleanDestination;
     }
 
     return {
         pathname: '/' as const,
-        hash: destination.slice(2),
+        hash: cleanDestination.slice(2),
     };
 };

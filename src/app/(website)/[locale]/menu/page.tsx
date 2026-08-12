@@ -18,6 +18,7 @@ export const generateMetadata = async ({ params }: MenuPageProps): Promise<Metad
     const menu = await sanityFetch<MenuDocument | null, { locale: Locale }>({
         query: MENU_PAGE_QUERY,
         params: { locale },
+        stega: false,
     });
 
     if (!menu) notFound();

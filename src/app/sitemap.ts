@@ -20,7 +20,7 @@ const documentPages: Record<string, SitePage> = {
 const locales: Locale[] = ['fr', 'en'];
 
 const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
-    const documents = await sanityFetch<SitemapDocument[]>({ query: SITEMAP_DOCUMENTS_QUERY });
+    const documents = await sanityFetch<SitemapDocument[]>({ query: SITEMAP_DOCUMENTS_QUERY, perspective: 'published', stega: false });
 
     return documents.flatMap((document) => {
         const page = documentPages[document._id];

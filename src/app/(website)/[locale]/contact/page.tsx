@@ -19,6 +19,7 @@ export const generateMetadata = async ({ params }: ContactPageProps): Promise<Me
     const contactPage = await sanityFetch<ContactDocument | null, { locale: Locale }>({
         query: CONTACT_PAGE_QUERY,
         params: { locale },
+        stega: false,
     });
 
     if (!contactPage) notFound();

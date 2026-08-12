@@ -17,8 +17,8 @@ export type PageSeoData = {
 type BuildPageMetadataOptions = {
     page: SitePage;
     locale: Locale;
-    fallbackTitle: string;
-    fallbackDescription: string;
+    fallbackTitle?: string | null;
+    fallbackDescription?: string | null;
     fallbackImage?: SanityImageData | null;
     seo?: PageSeoData['seo'];
 };
@@ -29,16 +29,18 @@ const openGraphLocales: Record<Locale, string> = {
 };
 
 export const buildPageMetadata = ({ page, locale, fallbackTitle, fallbackDescription, fallbackImage, seo }: BuildPageMetadataOptions): Metadata => {
-    const pageTitle = seo?.title?.trim() || fallbackTitle;
-    const title = page === 'home' && pageTitle.includes(SITE_NAME) ? pageTitle : `${pageTitle} | ${SITE_NAME}`;
-    const description = seo?.description?.trim() || fallbackDescription;
+    // A live draft can briefly contain null while Sanity applies an edit, so
+    // metadata must remain valid between patches without weakening validation.
+    const pageTitle = seo?.title?.trim() || fallbackTitle?.trim();
+    const title = pageTitle ? (page === 'home' && pageTitle.includes(SITE_NAME) ? pageTitle : `${pageTitle} | ${SITE_NAME}`) : SITE_NAME;
+    const description = seo?.description?.trim() || fallbackDescription?.trim();
     const socialImage = seo?.socialImage ?? fallbackImage;
     const image = socialImage
         ? {
               url: buildSanitySocialImageUrl(socialImage),
               width: 1200,
               height: 630,
-              alt: pageTitle,
+              alt: pageTitle ?? SITE_NAME,
           }
         : undefined;
 

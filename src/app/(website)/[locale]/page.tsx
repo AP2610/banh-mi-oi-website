@@ -27,6 +27,7 @@ export const generateMetadata = async ({ params }: HomePageProps): Promise<Metad
     const page = await sanityFetch<HomePageData, { locale: Locale }>({
         query: HOME_PAGE_QUERY,
         params: { locale },
+        stega: false,
     });
 
     return buildPageMetadata({

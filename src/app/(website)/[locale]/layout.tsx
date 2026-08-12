@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 import { Bebas_Neue, Quicksand } from 'next/font/google';
+import { draftMode } from 'next/headers';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { VisualEditing } from 'next-sanity/visual-editing';
 
 import { SiteHeader } from '@/components/layout/site-header';
 import { SiteFooter } from '@/components/layout/site-footer';
@@ -10,6 +12,7 @@ import { RestaurantStructuredData } from '@/components/seo/restaurant-structured
 import { routing } from '@/i18n/routing';
 import { SITE_NAME, SITE_URL } from '@/lib/site';
 import { sanityFetch } from '@/sanity/lib/fetch';
+import { SanityLive } from '@/sanity/lib/live';
 import { NAVIGATION_MENU_QUERY, type NavigationMenuData } from '@/sanity/queries/navigation-menu';
 import { SITE_SETTINGS_QUERY, type PublicSiteSettings } from '@/sanity/queries/site-settings';
 
@@ -73,6 +76,8 @@ export const generateMetadata = async ({ params }: WebsiteLayoutProps): Promise<
 
 const WebsiteLayout = async ({ children, params }: WebsiteLayoutProps) => {
     const { locale } = await params;
+    // The enable route sets this cookie-backed mode for Presentation requests.
+    const { isEnabled: isDraftMode } = await draftMode();
 
     if (!hasLocale(routing.locales, locale)) {
         notFound();
@@ -112,7 +117,17 @@ const WebsiteLayout = async ({ children, params }: WebsiteLayoutProps) => {
                         <SiteFooter instagramUrl={siteSettings?.instagramUrl} locale={locale} />
                     </div>
 
-                    {siteSettings ? <RestaurantStructuredData locale={locale} settings={siteSettings} /> : null}
+                    {/* Draft values should never be emitted as search-engine structured data. */}
+                    {!isDraftMode && siteSettings ? <RestaurantStructuredData locale={locale} settings={siteSettings} /> : null}
+
+                    {isDraftMode ? (
+                        <>
+                            {/* Refresh Sanity queries as drafts change in the Studio. */}
+                            <SanityLive includeDrafts />
+                            {/* Connect click-to-edit overlays to Stega-marked content. */}
+                            <VisualEditing />
+                        </>
+                    ) : null}
                 </NextIntlClientProvider>
             </body>
         </html>

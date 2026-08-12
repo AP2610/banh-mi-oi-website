@@ -57,7 +57,7 @@ export const POST = async (request: Request) => {
         return NextResponse.json({ error: 'Message delivery is unavailable.' }, { status: 500 });
     }
 
-    const recipient = await sanityFetch<string | null>({ query: CONTACT_RECIPIENT_QUERY });
+    const recipient = await sanityFetch<string | null>({ query: CONTACT_RECIPIENT_QUERY, perspective: 'published', stega: false });
 
     if (!recipient) {
         console.error('Contact delivery is missing the recipient configured in Site Settings.');

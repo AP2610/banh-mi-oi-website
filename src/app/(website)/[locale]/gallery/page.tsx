@@ -19,6 +19,7 @@ export const generateMetadata = async ({ params }: GalleryPageProps): Promise<Me
     const gallery = await sanityFetch<GalleryDocument | null, { locale: Locale }>({
         query: GALLERY_PAGE_QUERY,
         params: { locale },
+        stega: false,
     });
 
     if (!gallery) notFound();

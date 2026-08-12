@@ -7,4 +7,9 @@ export const client = createClient({
     dataset,
     apiVersion,
     useCdn: false, // Set to false if statically generating pages, using ISR or tag-based revalidation
+    stega: {
+        // Draft queries can encode the source document and field into displayed
+        // strings, allowing Presentation overlays to open the matching field.
+        studioUrl: '/studio',
+    },
 });
