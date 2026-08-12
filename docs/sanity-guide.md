@@ -14,9 +14,21 @@ Sign in with the account invited to the Bánh Mì Oi! project.
 
 - Fields marked as required must be completed before publishing.
 - Most text has **FR** and **EN** boxes. Fill in both unless the field says it is optional.
-- **Publish** makes the change available to the website.
-- If the live website does not update after publishing, ask the site administrator to publish the latest website version.
+- **Preview** shows saved changes before they are published.
+- **Publish** starts an update of the live website. The update normally takes a few minutes.
 - Do not create another copy of a page. Each page in the list is the one used by the website.
+
+## Previewing changes
+
+Open **Presentation** in Sanity to see the website beside the editing area.
+
+1. Choose the page you want to check.
+2. Make and save your changes. You do not need to publish them yet.
+3. Use the page choices in Presentation to check the French and English versions.
+4. Check the page at desktop and phone sizes.
+5. When everything looks right, choose **Publish**.
+
+The preview can show saved, unpublished work. Other website visitors cannot see that work. If the preview does not open, ask the site administrator to check the preview access settings.
 
 ## Pages
 
@@ -113,9 +125,11 @@ Images selected directly on a page also ask for French and English descriptions.
 3. Check all warning marks.
 4. Preview the text and links where possible.
 5. Choose **Publish**.
-6. Check the live French and English pages after the website has updated.
+6. Wait for the website update to finish, then check the live French and English pages.
 
 If something is wrong, correct it in Sanity and publish again. Do not delete a page or create a replacement.
+
+Publishing starts a new website update automatically. Several quick publishes may start several updates, so finish checking a document before publishing it where possible.
 
 ## Where to ask for help
 

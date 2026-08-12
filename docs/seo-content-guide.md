@@ -90,7 +90,7 @@ Avoid file names, repeated search words, or descriptions that do not match the p
 - Check every button opens the correct place.
 - Check every image has a useful French and English description.
 - Publish the page.
-- Ask the site administrator to publish the latest website version if changes do not appear automatically.
+- Wait a few minutes for the website to update. Ask the site administrator for help if the published change still does not appear.
 
 ## Keep Google consistent
 

@@ -56,9 +56,25 @@ Before considering a deployment complete, check:
 
 ### Sanity publishing and rebuilding
 
-Most website pages are generated from Sanity content during the Next.js build. Publishing content in Sanity does not necessarily start a Netlify deployment.
+Most website pages are generated from Sanity content during the Next.js build. A Sanity webhook should start a Netlify production deployment whenever relevant published content changes.
 
-Until a Sanity-to-Netlify build hook is configured, trigger a production rebuild from Netlify after publishing content that needs to appear on the site. If a build hook is added later, document its name, triggering rules, and ownership here. Avoid storing the secret build-hook URL in this repository.
+The one-time setup is:
+
+1. In **Netlify → Project configuration → Build & deploy → Continuous deployment → Build hooks**, add a hook named `Sanity production publish` for the `main` branch.
+2. Copy the generated build-hook URL. Treat it as a secret: anyone with it can start a deploy. Never add it to the repository or Sanity content.
+3. In **Sanity Manage → API → Webhooks**, create a webhook named `Netlify production deploy`.
+4. Paste the Netlify build-hook URL into the webhook URL.
+5. Select the `production` dataset and enable the create, update, and delete events.
+6. Leave draft triggering disabled so saving a draft does not use Netlify build minutes.
+7. Use this GROQ filter:
+
+```groq
+_type in ["homePage", "galleryPage", "menuPage", "contactPage", "navigationMenu", "siteSettings", "sanity.imageAsset", "sanity.fileAsset"]
+```
+
+8. Save the webhook, publish a harmless content change, and confirm that a production deploy appears in Netlify.
+
+The request body is not used by Netlify, so no custom projection is required. If the webhook fails, inspect its delivery log in Sanity and the deploy list in Netlify. Avoid repeated test publishes because every successful request starts another build.
 
 ## Environment variables
 
@@ -69,12 +85,15 @@ Environment variables are administered in **Netlify → Project configuration �
 | `NEXT_PUBLIC_SANITY_PROJECT_ID`  | Selects the Sanity project                                           | No                                          |
 | `NEXT_PUBLIC_SANITY_DATASET`     | Selects the Sanity dataset; normally `production`                    | No                                          |
 | `NEXT_PUBLIC_SANITY_API_VERSION` | Pins Sanity API behaviour; currently `2026-07-19`                    | No                                          |
+| `SANITY_API_READ_TOKEN`          | Lets the private preview read saved drafts                           | Yes                                         |
 | `NEXT_PUBLIC_SITE_URL`           | Canonical origin; normally `https://www.banhmioiparis.fr`            | No                                          |
 | `RESEND_API_KEY`                 | Authenticates contact-form email delivery                            | Yes                                         |
 | `RESEND_FROM_EMAIL`              | Verified sender, for example `Banh Mi Oi <contact@banhmioiparis.fr>` | No, but administer with the Resend settings |
 | `GOOGLE_SITE_VERIFICATION`       | Optional Google Search Console HTML-tag token                        | No                                          |
 
-The three `NEXT_PUBLIC_SANITY_*` variables are needed during builds and at runtime. `NEXT_PUBLIC_SITE_URL` controls canonical URLs, language alternates, the sitemap, and structured data, so it must use the public primary domain. The Resend variables are required by the contact API at runtime. Mark `RESEND_API_KEY` as a secret in Netlify and never expose it through a `NEXT_PUBLIC_*` variable.
+The three `NEXT_PUBLIC_SANITY_*` variables are needed during builds and at runtime. `NEXT_PUBLIC_SITE_URL` controls canonical URLs, language alternates, the sitemap, and structured data, so it must use the public primary domain. The Resend variables are required by the contact API at runtime. Mark `RESEND_API_KEY` and `SANITY_API_READ_TOKEN` as secrets in Netlify and never expose either through a `NEXT_PUBLIC_*` variable.
+
+Create `SANITY_API_READ_TOKEN` in **Sanity Manage → API → Tokens** with the Viewer role. Give it a clear name such as `Website draft preview`. Add the value to the Netlify production environment and to `.env.local` for local preview development. The Viewer role is sufficient; preview must never use a token that can create, edit, or delete content.
 
 Environment-variable changes only affect new deploys. Trigger a new deployment after adding, changing, or rotating a value.
 
@@ -155,6 +174,19 @@ The optional restaurant search fields in Site Settings are:
 - price range, such as `€` or `€€`
 
 Each page also contains a collapsed **SEO and social sharing** object. Its localized search title, description, and sharing image are overrides; when left empty, the website uses the page's existing title, subtitle, and main image.
+
+### Draft preview
+
+The Sanity Studio includes **Presentation**, which loads the website in private draft mode. In this mode, editors can see saved draft content and changes refresh without publishing. Normal website visits continue to use published content.
+
+Preview depends on:
+
+- `SANITY_API_READ_TOKEN` being present in the running environment
+- the website origin being present in Sanity's CORS origins with credentials allowed
+- `/api/draft-mode/enable` and `/api/draft-mode/disable` remaining available
+- the Presentation routes in `src/sanity/presentation/resolve.ts` matching the public French and English routes
+
+Search metadata, the sitemap, structured restaurant data, and the contact-form recipient deliberately continue to use published content rather than draft preview values.
 
 ## Search administration
 
